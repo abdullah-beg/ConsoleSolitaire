@@ -30,4 +30,10 @@ public class Pile {
 
     }
 
+    public Card getCardAtIndex(int index) {
+
+        return cards.get(index);
+
+    }
+
 }

@@ -25,9 +25,7 @@ public class Card {
 
 
 
-    /*
-        Accessor Methods
-    */
+    // Accessor Methods
 
     public String getCardSuit() {
 

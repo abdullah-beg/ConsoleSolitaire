@@ -13,7 +13,11 @@ public class Main {
         game = new GameBoard();
         cards = new ArrayList<Card>();
         generateCards();
-        shuffleCards();
+
+        Collections.shuffle(cards); // List of cards is shuffled
+        prepareCardLayout(); // Place randomised cards in piles, such that you have 1 2 3 4 5 6 7 cards
+        showFrontCard(); // Shows the bottom most card in each pile
+
         stock = new Stock(cards);    
 
     }
@@ -40,17 +44,24 @@ public class Main {
 
     }
 
-    private void shuffleCards() {
+    private void prepareCardLayout() {
 
-        Collections.shuffle(cards); // List of cards is shuffled
-
-        // Place randomised cards in piles, such that you have 1 2 3 4 5 6 7 cards
         for (int pile = 0; pile < 7; pile++) {
             for (int card = 0; card <= pile; card++) {
                 game.getPile(pile).addCardToPile(cards.get(card));
                 cards.remove(card);
 
             }
+
+        }
+
+    }
+
+    private void showFrontCard() {
+
+        for (int pile = 0; pile < 7; pile++) {
+            Pile currentPile = game.getPile(pile);
+            currentPile.getCardAtIndex(currentPile.getCardCount() - 1).setVisible(true);
 
         }
 
