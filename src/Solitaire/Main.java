@@ -2,17 +2,16 @@ package Solitaire;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Main {
 
     private ArrayList<Card> cards;
     private GameBoard game;
-    private Scanner userInput;
+    private Parser parser;
 
     private Main() {
 
-        userInput = new Scanner(System.in);
+        parser = new Parser();
 
         cards = new ArrayList<Card>();
         generateCards();
@@ -70,14 +69,6 @@ public class Main {
 
     }
 
-    private String getUserInput() {
-
-        System.out.print(">");
-        String userString = userInput.nextLine();
-        return userString;
-
-    }
-
     private boolean gameFinished() {
 
         for (int pile = 0; pile < 7; pile++) {
@@ -100,9 +91,15 @@ public class Main {
         Main main = new Main();
 
         while (!main.gameFinished()) {
-            String userInput = main.getUserInput();
 
-            String[] command = userInput.toLowerCase().stripLeading().split(" ", 4);
+            Command command = main.parser.getUserCommand();
+
+            if (command.validateCommand()) {
+
+                System.out.println("valid");
+
+            }
+
 
         }
 
