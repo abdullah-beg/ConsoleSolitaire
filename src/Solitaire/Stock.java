@@ -9,13 +9,12 @@ public class Stock extends Pile {
 
     }
 
-    // private void hideAllCards() {
+    public void returnCardToStock(Card card, Pile pile) {
 
-    //     for (Card card : cards) {
-    //         card.setVisible(false);
+        card.setVisible(false);
+        cards.add(card);
+        pile.removeCardAtIndex(pile.getCardCount() - 1);
 
-    //     }
-
-    // }
+    }
 
 }

@@ -36,4 +36,16 @@ public class Pile {
 
     }
 
+    public void removeCardAtIndex(int index) {
+
+        cards.remove(index);
+
+    }
+
+    public ArrayList<Card> getCardsInPile() {
+
+        return cards;
+
+    }
+
 }

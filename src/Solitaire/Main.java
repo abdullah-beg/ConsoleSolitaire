@@ -2,14 +2,19 @@ package Solitaire;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Main {
 
     private ArrayList<Card> cards;
     private GameBoard game;
     private Stock stock;
+    private Scanner userInput;
 
     private Main() {
+
+        userInput = new Scanner(System.in);
+
         game = new GameBoard();
         cards = new ArrayList<Card>();
         generateCards();
@@ -67,13 +72,37 @@ public class Main {
 
     }
 
+    private String getUserInput() {
+
+        System.out.print(">");
+        String userString = userInput.nextLine();
+        return userString;
+
+    }
+
+    private boolean gameFinished() {
+
+        for (int pile = 0; pile < 7; pile++) {
+            for (Card card : game.getPile(pile).getCardsInPile()) {
+                if (!card.getCardVisible()) {
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        return true;
+
+    }
+
     public static void main(String[] args) {
 
         Main main = new Main();
 
-        for (Card card: main.cards) {
-
-            System.out.println("Card Suit: " + card.getCardSuit() + "   Card Number: " + card.getCardNumber() + "   Visible: " + card.getCardVisibility());
+        while (!main.gameFinished()) {
+            String userInput = main.getUserInput();
 
         }
 

@@ -25,7 +25,7 @@ public class Card {
 
 
 
-    // Accessor Methods
+    // Accessor Methods (Getters)
 
     public String getCardSuit() {
 
@@ -45,7 +45,7 @@ public class Card {
 
     }
 
-    public boolean getCardVisibility() {
+    public boolean getCardVisible() {
 
         return visible;
 
