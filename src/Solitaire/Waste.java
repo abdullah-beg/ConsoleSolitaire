@@ -10,11 +10,11 @@ public class Waste extends Pile {
 
     }
 
-    public void takeCardFromStock(Card card, Pile pile) {
+    public void takeCardFromStock(Card card) {
 
-        cards.add(pile.getCardAtIndex(0));
-        pile.removeCardAtIndex(0);
-        
+        card.setVisible(true);
+        cards.add(card);
+
     }
 
 }

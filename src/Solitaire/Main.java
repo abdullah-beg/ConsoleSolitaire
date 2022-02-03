@@ -8,22 +8,20 @@ public class Main {
 
     private ArrayList<Card> cards;
     private GameBoard game;
-    private Stock stock;
     private Scanner userInput;
 
     private Main() {
 
         userInput = new Scanner(System.in);
 
-        game = new GameBoard();
         cards = new ArrayList<Card>();
         generateCards();
+        game = new GameBoard();
 
         Collections.shuffle(cards); // List of cards is shuffled
         prepareCardLayout(); // Place randomised cards in piles, such that you have 1 2 3 4 5 6 7 cards
+        game.getStock().setStock(cards); // Remaining cards put into stock
         showFrontCard(); // Shows the bottom most card in each pile
-
-        stock = new Stock(cards);    
 
     }
 
@@ -103,6 +101,8 @@ public class Main {
 
         while (!main.gameFinished()) {
             String userInput = main.getUserInput();
+
+            String[] command = userInput.toLowerCase().stripLeading().split(" ", 4);
 
         }
 

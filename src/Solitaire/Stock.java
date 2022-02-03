@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public class Stock extends Pile {
 
-    public Stock(ArrayList<Card> remainingCards) {
+    public Stock() {
+        cards = new ArrayList<>();
+    }
+
+    public void setStock(ArrayList<Card> remainingCards) {
+
         cards = remainingCards;
 
     }
 
-    public void returnCardToStock(Card card, Pile pile) {
+    public void returnCardToStock(Card card) {
 
         card.setVisible(false);
         cards.add(card);
-        pile.removeCardAtIndex(pile.getCardCount() - 1);
 
     }
 
