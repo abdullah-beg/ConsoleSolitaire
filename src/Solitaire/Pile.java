@@ -64,4 +64,16 @@ public class Pile {
 
     }
 
+    public Card getBottomCard() {
+
+        return cards.get(cards.size() - 1);
+
+    }
+
+    public void removeCardFromBottom() {
+
+        cards.remove(cards.size() - 1);
+
+    }
+
 }

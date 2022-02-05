@@ -39,7 +39,7 @@ public class GameBoard {
 
     private void generateCards() {
 
-        String suits = "AAAA";
+        String suits = "ABCD";
         String colour = "black";
 
         for (int suit = 0; suit < 4; suit++) {
@@ -70,12 +70,15 @@ public class GameBoard {
 
     }
 
-    private void showFrontCard() {
+    public void showFrontCard() {
 
         for (int pile = 0; pile < 7; pile++) {
             Pile currentPile = getPile(pile);
-            currentPile.getCardAtIndex(currentPile.getCardCount() - 1).setVisible(true);
-            System.out.println("Number: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardNumber() + "     Colour: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardColour());
+            if (currentPile.getCardCount() > 0) {
+                currentPile.getCardAtIndex(currentPile.getCardCount() - 1).setVisible(true);
+                System.out.println("Number: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardNumber() + "     Colour: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardColour());
+
+            }
 
         }
 
