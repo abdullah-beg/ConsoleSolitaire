@@ -32,7 +32,12 @@ public class Pile {
 
     public Card getCardAtIndex(int index) {
 
-        return cards.get(index);
+        if (cards.size() > 0) {
+            return cards.get(index);
+
+        }
+
+        return null;        
 
     }
 
@@ -45,6 +50,17 @@ public class Pile {
     public ArrayList<Card> getCardsInPile() {
 
         return cards;
+
+    }
+
+    public boolean isEmpty() {
+
+        if (cards.size() == 0) {
+            return true;
+
+        }
+
+        return false;
 
     }
 

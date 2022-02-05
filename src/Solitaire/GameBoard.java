@@ -6,19 +6,26 @@ import java.util.Collections;
 public class GameBoard {
     
     private ArrayList<Card> cards;
-    private ArrayList<Pile> piles;
-    private Stock stock;
-    private Waste waste;
+    private ArrayList<Pile> tablePiles;
+    private Stock stockPile;
+    private Waste wastePile;
+    private ArrayList<Foundation> foundationPiles;
 
     public GameBoard() {
 
         cards = new ArrayList<>();
-        piles = new ArrayList<>();
-        waste = new Waste();
-        stock = new Stock();
+        tablePiles = new ArrayList<>();
+        wastePile = new Waste();
+        stockPile = new Stock();
+        foundationPiles = new ArrayList<>();
 
         for(int i = 0; i < 7; i++) {
-            piles.add(new Pile());
+            tablePiles.add(new Pile());
+
+        }
+
+        for(int i = 0; i < 4; i++) {
+            foundationPiles.add(new Foundation());
 
         }
 
@@ -26,13 +33,13 @@ public class GameBoard {
         Collections.shuffle(cards);
         prepareCardLayout();
         showFrontCard();
-        stock.setStock(cards);
+        stockPile.setStock(cards);
 
     }
 
     private void generateCards() {
 
-        String suits = "ABCD";
+        String suits = "AAAA";
         String colour = "black";
 
         for (int suit = 0; suit < 4; suit++) {
@@ -68,6 +75,7 @@ public class GameBoard {
         for (int pile = 0; pile < 7; pile++) {
             Pile currentPile = getPile(pile);
             currentPile.getCardAtIndex(currentPile.getCardCount() - 1).setVisible(true);
+            System.out.println("Number: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardNumber() + "     Colour: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardColour());
 
         }
 
@@ -75,19 +83,43 @@ public class GameBoard {
 
     public Stock getStock() {
 
-        return stock;
+        return stockPile;
 
     }
 
     public Waste getWaste() {
 
-        return waste;
+        return wastePile;
 
     }
 
     public Pile getPile(int index) {
 
-        return piles.get(index);
+        return tablePiles.get(index);
+
+    }
+
+    public Foundation getFoundation(int index) {
+
+        return foundationPiles.get(index);
+
+    }
+
+    public Pile locatePile(String input) {
+
+        String pile = input.substring(0,1);
+        int index = Integer.parseInt(input.substring(1,2));
+
+        if (pile.equals("w")) {
+            return getWaste();
+
+        } else if (pile.equals("f")) {
+            return getFoundation(index - 1);
+        
+        }
+
+        // If it has reached here, it means that its looking for a table pile
+        return getPile(index - 1);
 
     }
 
