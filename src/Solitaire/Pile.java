@@ -24,12 +24,6 @@ public class Pile {
 
     }
 
-    public void removeCardFromPile(Card card) {
-
-        
-
-    }
-
     public Card getCardAtIndex(int index) {
 
         if (cards.size() > 0) {
@@ -66,13 +60,46 @@ public class Pile {
 
     public Card getBottomCard() {
 
-        return cards.get(cards.size() - 1);
+        if (cards.size() > 0) {
+            return cards.get(cards.size() - 1);
+
+        }
+
+        return null;        
 
     }
 
     public void removeCardFromBottom() {
 
         cards.remove(cards.size() - 1);
+
+    }
+
+    public ArrayList<Card> getVisibleCards() {
+
+        ArrayList<Card> visibleCards = new ArrayList<>();
+
+        for (Card card : cards) {
+            if (card.getCardVisible()) {
+                visibleCards.add(card);
+
+            }
+
+        }
+
+        return visibleCards;
+
+    }
+
+    public void removeVisibleCards() {
+
+        for (Card card : cards) {
+            if (card.getCardVisible()) {
+                cards.remove(card);
+
+            }
+
+        }
 
     }
 

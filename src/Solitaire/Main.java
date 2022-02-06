@@ -46,39 +46,175 @@ public class Main {
 
         // If this has been reached, they have inputted "s"
 
+        logic.cycleStock(game.getStock(), game.getWaste());
 
 
     }
 
     public void processCommand(String word1, String word2) {
 
-        if (word2.substring(0,1).equals("f")) {
-            Foundation foundation = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
-            Pile pile = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
 
-            if (logic.foundationMoveLogic(pile, foundation)) {
-                foundation.addCardToPile(pile.getCardAtIndex(pile.getCardCount() - 1));
-                pile.removeCardAtIndex(pile.getCardCount() - 1);
+        if (word1.equals("w")) {
+
+            Waste waste = game.getWaste();
+
+            if (word2.substring(0,1).equals("p")) {
+                
+                Pile pile = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
+
+                if (logic.moveLogic(waste, pile)) {
+                    
+                    pile.addCardToPile(waste.getFrontCard());
+                    waste.removeCardFromBottom();
+        
+                }
+
+
+            } else {
+                
+                Foundation foundation = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
+
+                if (logic.moveLogic(waste, foundation)) {
+
+                    foundation.addCardToPile(waste.getFrontCard());
+                    waste.removeCardFromBottom();
+                    waste.setFrontCard();
+
+                }
+
+            }
+
+        } else if (word1.substring(0,1).equals("f")) { 
+
+            Foundation foundation = game.getFoundation(Integer.parseInt((word1).substring(1,2)) - 1);
+
+            if (word2.substring(0,1).equals("p")) {
+
+                Pile pile = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
+
+                if (logic.moveLogic(foundation, pile)) {
+
+                    pile.addCardToPile(foundation.getBottomCard());
+                    foundation.removeCardFromBottom();
+        
+                }
+
+
+            } else {
+
+                Foundation foundation2 = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
+
+                if (logic.moveLogic(foundation, foundation2)) {
+
+                    foundation2.addCardToPile(foundation2.getBottomCard());
+                    foundation.removeCardFromBottom();
+        
+                }
+
 
             }
 
         } else {
-            if (logic.validMove(game.locatePile(word1), game.locatePile(word2))) {
-                Pile pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
+
+            Pile pile = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
+
+            if (word2.substring(0,1).equals("p")) {
+
                 Pile pile2 = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
 
-                pile2.addCardToPile(pile1.getBottomCard());
-                pile1.removeCardFromBottom();
+                if (logic.moveLogic(pile, pile2)) {
+                    for (Card card : pile.getVisibleCards()) {
+                        pile2.addCardToPile(card);
+                        pile.getCardsInPile().remove(card);
+                    }
+        
+                }
+
+            } else {
+
+                Foundation foundation = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
+
+                if (logic.moveLogic(pile, foundation)) {
+                
+                    foundation.addCardToPile(pile.getBottomCard());
+                    pile.removeCardFromBottom();
+        
+                }
 
             }
 
         }
 
+
+        // if (word1.equals("w")) {
+        //     pile1 = new Waste();
+        //     pile1 = game.getWaste();
+
+        // } else if (word1.substring(0,1).equals("f")) {
+        //     pile1 = new Foundation();
+        //     pile1 = game.getFoundation(Integer.parseInt((word1).substring(1,2)) - 1);
+
+        // } else {
+        //     pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
+
+        // }
+
+        // if (word2.substring(0,1).equals("f")) {
+        //     pile2 = new Foundation();
+        //     pile2 = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
+
+        // } else {
+        //     pile2 = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
+
+        // }
+
+        // System.out.println(pile1.getClass());
+        // System.out.println(pile2.getClass());
+
+        // // We now have both piles in their types.
+
+        // if (logic.moveLogic(pile1, pile2)) {
+        //     for (Card card : pile1.getVisibleCards()) {
+        //         pile2.addCardToPile(card);
+
+        //     }
+
+        // }
+
+
+        // if (word1.equals("w")) {
+        //     Waste waste = game.getWaste();
+
+        // } else {
+
+        // }
+        // if (word2.substring(0,1).equals("f")) {
+        //     Foundation foundation = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
+        //     Pile pile = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
+
+        //     if (logic.foundationMoveLogic(pile, foundation)) {
+        //         foundation.addCardToPile(pile.getCardAtIndex(pile.getCardCount() - 1));
+        //         pile.removeCardAtIndex(pile.getCardCount() - 1);
+
+        //     }
+
+        // } else {
+        //     if (logic.validMove(game.locatePile(word1), game.locatePile(word2))) {
+        //         Pile pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
+        //         Pile pile2 = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
+
+        //         pile2.addCardToPile(pile1.getBottomCard());
+        //         pile1.removeCardFromBottom();
+
+        //     }
+
+        // }
+
     }
 
     public void processCommand(String word1, String word2, String word3) {
 
-
+        
 
     }
 

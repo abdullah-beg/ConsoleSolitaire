@@ -39,7 +39,7 @@ public class GameBoard {
 
     private void generateCards() {
 
-        String suits = "ABCD";
+        String suits = "AAAA";
         String colour = "black";
 
         for (int suit = 0; suit < 4; suit++) {
@@ -111,17 +111,19 @@ public class GameBoard {
     public Pile locatePile(String input) {
 
         String pile = input.substring(0,1);
-        int index = Integer.parseInt(input.substring(1,2));
 
         if (pile.equals("w")) {
             return getWaste();
 
         } else if (pile.equals("f")) {
+            int index = Integer.parseInt(input.substring(1,2));
             return getFoundation(index - 1);
         
         }
 
         // If it has reached here, it means that its looking for a table pile
+        
+        int index = Integer.parseInt(input.substring(1,2));
         return getPile(index - 1);
 
     }
