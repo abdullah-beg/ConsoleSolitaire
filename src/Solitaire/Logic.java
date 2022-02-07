@@ -8,57 +8,6 @@ public class Logic {
 
     }
 
-    public boolean foundationMoveLogic(Pile pile, Foundation foundation) {
-
-        Card card1 = pile.getCardAtIndex(pile.getCardCount() - 1);
-        Card card2 = foundation.getCardAtIndex(foundation.getCardCount() - 1);
-        
-
-        if (foundation.isEmpty() == true) {
-            if (card1.getCardNumber() == 1) {
-                foundation.setSuit(card1.getCardSuit());
-                return true;
-
-            }
-
-        } else {
-            if (card1.getCardNumber() - 1 == card2.getCardNumber() && card1.getCardSuit().equals(card2.getCardSuit())) {
-                return true;
-
-            }
-
-        }
-
-        return false;
-
-    }
-
-    public boolean validMove(Pile p1, Pile p2) {
-
-        Card card1 = p1.getCardAtIndex(p1.getCardCount() - 1);
-        Card card2 = p2.getCardAtIndex(p2.getCardCount() - 1);
-
-        if (p1.isEmpty() == false) {
-            if (p2.isEmpty() == false) {
-                if (card1.getCardNumber() + 1 == card2.getCardNumber() && card1.getCardColour() != card2.getCardColour()) {
-                    return true;
-
-                }
-
-            } else {
-                if (card1.getCardNumber() == 13) {
-                    return true;
-
-                }
-
-            }
-
-        }
-
-        return false;
-
-    }
-
     public void cycleStock(Stock stock, Waste waste) {
 
         if (!stock.isEmpty()) {
@@ -198,7 +147,8 @@ public class Logic {
 
             } else {
                 // Foundation is not empty
-                if (card1.getCardNumber() - 1 == card2.getCardNumber() && sameColour(card1, card2) == true) {
+                // make sure to compare their suits not their colour
+                if (card1.getCardNumber() - 1 == card2.getCardNumber() && card1.getCardSuit().equals(card2.getCardSuit())) {
                     return true;
 
                 }
@@ -213,7 +163,7 @@ public class Logic {
 
 
     /*
-
+        If we are moving Cards from a pile to pile
     */
     public boolean moveLogic(Pile pile1, Pile pile2) {
 
@@ -248,12 +198,13 @@ public class Logic {
     }
 
     /*
-
+        If we are moving a Card from Foundation to Foundation
     */
     public boolean moveLogic(Foundation foundation1, Foundation foundation2) {
 
         Card card1 = foundation1.getBottomCard();
-        Card card2 = foundation1.getBottomCard();
+
+        // This doesnt need a second card, since only possible is moving A across foundations
 
         if (!foundation1.isEmpty() && foundation2.isEmpty()) {
             if (card1.getCardNumber() == 1) {
@@ -267,10 +218,46 @@ public class Logic {
 
     }
 
-    public boolean sameColour(Card card1, Card card2) {
+    public boolean moveLogic(Pile pile1, int cardNumber, Pile pile2) {
 
-        if (card1.getCardColour().equals(card2.getCardColour())) {
-            return true;
+        ArrayList<Card> visibleCards = pile1.getVisibleCards();
+        Card card1;
+
+        if (!pile1.isEmpty()) {
+            if (pile2.isEmpty()) {
+                for (Card card : visibleCards) {
+                    if (card.getCardNumber() == cardNumber) {
+
+                        card1 = card;
+
+                        if (card1.getCardNumber() == 13) {
+                            return true;
+
+                        }
+
+                    }
+
+                }
+
+            } else {
+
+                // Pile 1 and 2 are not empty
+
+                for (Card card : visibleCards) {
+                    if (card.getCardNumber() == cardNumber) {
+                        card1 = card;
+                        Card card2 = pile2.getBottomCard();
+
+                        if (card1.getCardNumber() + 1 == card2.getCardNumber() && sameColour(card1, card2) == false) {
+                            return true;                            
+
+                        }
+        
+                    }
+        
+                }
+
+            }
 
         }
 
@@ -278,7 +265,14 @@ public class Logic {
 
     }
 
-    public boolean validMove(Pile p1, Pile p2, int index) {
+
+
+    public boolean sameColour(Card card1, Card card2) {
+
+        if (card1.getCardColour().equals(card2.getCardColour())) {
+            return true;
+
+        }
 
         return false;
 

@@ -6,12 +6,14 @@ public class Main {
     private GameBoard game;
     private Parser parser;
     private Logic logic;
+    private Draw draw;
 
     private Main() {
 
         parser = new Parser();
         game = new GameBoard();
         logic = new Logic();
+        draw = new Draw();
 
     }
 
@@ -35,11 +37,11 @@ public class Main {
     public void processCommand(String word1) {
 
         if (word1.equals("help")) {
-
+            System.out.println("get good");
             return;
 
         } else if (word1.equals("undo")) {
-
+            System.out.println("idk how to undo yet");
             return;
 
         }
@@ -145,82 +147,25 @@ public class Main {
 
         }
 
-
-        // if (word1.equals("w")) {
-        //     pile1 = new Waste();
-        //     pile1 = game.getWaste();
-
-        // } else if (word1.substring(0,1).equals("f")) {
-        //     pile1 = new Foundation();
-        //     pile1 = game.getFoundation(Integer.parseInt((word1).substring(1,2)) - 1);
-
-        // } else {
-        //     pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
-
-        // }
-
-        // if (word2.substring(0,1).equals("f")) {
-        //     pile2 = new Foundation();
-        //     pile2 = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
-
-        // } else {
-        //     pile2 = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
-
-        // }
-
-        // System.out.println(pile1.getClass());
-        // System.out.println(pile2.getClass());
-
-        // // We now have both piles in their types.
-
-        // if (logic.moveLogic(pile1, pile2)) {
-        //     for (Card card : pile1.getVisibleCards()) {
-        //         pile2.addCardToPile(card);
-
-        //     }
-
-        // }
-
-
-        // if (word1.equals("w")) {
-        //     Waste waste = game.getWaste();
-
-        // } else {
-
-        // }
-        // if (word2.substring(0,1).equals("f")) {
-        //     Foundation foundation = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
-        //     Pile pile = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
-
-        //     if (logic.foundationMoveLogic(pile, foundation)) {
-        //         foundation.addCardToPile(pile.getCardAtIndex(pile.getCardCount() - 1));
-        //         pile.removeCardAtIndex(pile.getCardCount() - 1);
-
-        //     }
-
-        // } else {
-        //     if (logic.validMove(game.locatePile(word1), game.locatePile(word2))) {
-        //         Pile pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
-        //         Pile pile2 = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
-
-        //         pile2.addCardToPile(pile1.getBottomCard());
-        //         pile1.removeCardFromBottom();
-
-        //     }
-
-        // }
-
     }
 
     public void processCommand(String word1, String word2, String word3) {
 
+        Pile pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
+        Pile pile2 = game.getPile(Integer.parseInt((word3).substring(1,2)) - 1);
+        int cardNumber = Integer.parseInt((word2));
         
+        if (logic.moveLogic(pile1, cardNumber, pile2)) {
+
+        }
+
 
     }
 
     public static void main(String[] args) {
 
         Main main = new Main();
+        Draw draw = new Draw();
 
         while (!main.gameFinished()) {
 
@@ -243,14 +188,13 @@ public class Main {
 
                 }
 
-                main.game.showFrontCard();
-
             } else {
 
 
 
             }
 
+            draw.printBoard(main.game.getStock().getCardCount(), main.game.getWaste());
 
         }
 
