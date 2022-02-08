@@ -68,6 +68,7 @@ public class Main {
                     
                     pile.addCardToPile(waste.getFrontCard());
                     waste.removeCardFromBottom();
+                    waste.setCardOrder();
         
                 }
 
@@ -80,7 +81,7 @@ public class Main {
 
                     foundation.addCardToPile(waste.getFrontCard());
                     waste.removeCardFromBottom();
-                    waste.setFrontCard();
+                    waste.setCardOrder();
 
                 }
 
@@ -108,7 +109,7 @@ public class Main {
 
                 if (logic.moveLogic(foundation, foundation2)) {
 
-                    foundation2.addCardToPile(foundation2.getBottomCard());
+                    foundation2.addCardToPile(foundation.getBottomCard());
                     foundation.removeCardFromBottom();
         
                 }
@@ -194,7 +195,8 @@ public class Main {
 
             }
 
-            draw.printBoard(main.game.getStock().getCardCount(), main.game.getWaste());
+            main.game.showFrontCard();
+            draw.printBoard(main.game.getStock().getCardCount(), main.game.getWaste(), main.game.getFoundations(), main.game.getPiles());
 
         }
 

@@ -16,6 +16,26 @@ public class Card {
 
     }
 
+    public String getCardRepresentation() {
+
+        if (number == 1) {
+            return "A"; 
+        
+        } else if (number == 11) {
+            return "J";
+            
+        } else if (number == 12) {
+            return "Q";
+
+        } else if (number == 13) {
+            return "K";
+
+        }
+
+        return "" + number;
+
+    }
+
 
     public void setVisible(boolean bool) {
 

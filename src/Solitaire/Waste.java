@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Waste extends Pile {
 
+    private Card backCard;
+    private Card midCard;
     private Card frontCard;
     
     public Waste() {
@@ -12,13 +14,30 @@ public class Waste extends Pile {
 
     }
 
-    public void setFrontCard() {
+    public void setCardOrder() {
 
-        if (getCardCount() == 0) {
-            frontCard = null;
+        frontCard = null;
+        midCard = null;
+        backCard = null;
+
+        if (cards.size() == 0) {
+            return;
+            
+
+        } else if (cards.size() == 1) {
+            frontCard = cards.get(0); 
+
+        } else if (cards.size() == 2) {
+            frontCard = cards.get(1);
+            backCard = cards.get(0);
 
         } else {
-            frontCard = cards.get(getCardCount() - 1);
+
+            // If there are three or more cards inside of waste
+
+            frontCard = cards.get(cards.size() - 1);
+            midCard = cards.get(cards.size() - 2);
+            backCard = cards.get(cards.size() - 3);
 
         }
 
@@ -27,6 +46,18 @@ public class Waste extends Pile {
     public Card getFrontCard() {
 
         return frontCard;
+
+    }
+
+    public Card getMidCard() {
+
+        return midCard;
+
+    }
+
+    public Card getBackCard() {
+
+        return backCard;
 
     }
 

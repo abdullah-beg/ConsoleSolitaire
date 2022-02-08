@@ -39,7 +39,7 @@ public class GameBoard {
 
     private void generateCards() {
 
-        String suits = "AAAA";
+        String suits = "ABCD";
         String colour = "black";
 
         for (int suit = 0; suit < 4; suit++) {
@@ -102,9 +102,21 @@ public class GameBoard {
 
     }
 
+    public ArrayList<Pile> getPiles() {
+
+        return tablePiles;
+
+    }
+
     public Foundation getFoundation(int index) {
 
         return foundationPiles.get(index);
+
+    }
+
+    public ArrayList<Foundation> getFoundations() {
+
+        return foundationPiles;
 
     }
 

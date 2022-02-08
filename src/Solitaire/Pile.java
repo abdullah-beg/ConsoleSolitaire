@@ -91,6 +91,22 @@ public class Pile {
 
     }
 
+    public ArrayList<Card> getHiddenCards() {
+
+        ArrayList<Card> hiddenCards = new ArrayList<>();
+
+        for (Card card : cards) {
+            if (!card.getCardVisible()) {
+                hiddenCards.add(card);
+
+            }
+
+        }
+
+        return hiddenCards;
+
+    }
+
     public void removeVisibleCards() {
 
         for (Card card : cards) {

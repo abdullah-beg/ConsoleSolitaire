@@ -14,7 +14,7 @@ public class Logic {
             
             waste.takeCardFromStock(stock.getCardAtIndex(0));
             stock.removeCardAtIndex(0);
-            waste.setFrontCard();
+            waste.setCardOrder();
 
 
             System.out.println("Number of cards in stock: " + stock.getCardCount() + "Front card in waste: " + waste.getFrontCard().getCardNumber());
