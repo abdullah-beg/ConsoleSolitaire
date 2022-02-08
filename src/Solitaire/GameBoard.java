@@ -39,7 +39,7 @@ public class GameBoard {
 
     private void generateCards() {
 
-        String suits = "ABCD";
+        String suits = "#$%@";
         String colour = "black";
 
         for (int suit = 0; suit < 4; suit++) {

@@ -218,9 +218,10 @@ public class Logic {
 
     }
 
-    public boolean moveLogic(Pile pile1, int cardNumber, Pile pile2) {
+    public ArrayList<Card> moveLogic(Pile pile1, int cardNumber, Pile pile2) {
 
         ArrayList<Card> visibleCards = pile1.getVisibleCards();
+        ArrayList<Card> returnCards = new ArrayList<>();
         Card card1;
 
         if (!pile1.isEmpty()) {
@@ -231,7 +232,7 @@ public class Logic {
                         card1 = card;
 
                         if (card1.getCardNumber() == 13) {
-                            return true;
+                            return visibleCards;
 
                         }
 
@@ -246,10 +247,15 @@ public class Logic {
                 for (Card card : visibleCards) {
                     if (card.getCardNumber() == cardNumber) {
                         card1 = card;
+                        int index = pile1.getCardsInPile().indexOf(card);
                         Card card2 = pile2.getBottomCard();
 
+                        for (int i = index; i < pile1.getCardCount(); i++) {
+                            returnCards.add(pile1.getCardAtIndex(i));
+                        }
+
                         if (card1.getCardNumber() + 1 == card2.getCardNumber() && sameColour(card1, card2) == false) {
-                            return true;                            
+                            return returnCards;                            
 
                         }
         
@@ -261,7 +267,7 @@ public class Logic {
 
         }
 
-        return false;
+        return null;
 
     }
 

@@ -1,5 +1,7 @@
 package Solitaire;
 
+import java.util.ArrayList;
+
 public class Main {
 
     // game map 87 x 41
@@ -154,12 +156,42 @@ public class Main {
 
         Pile pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
         Pile pile2 = game.getPile(Integer.parseInt((word3).substring(1,2)) - 1);
-        int cardNumber = Integer.parseInt((word2));
+        int cardNumber = Integer.parseInt((convertInput(word2)));
         
-        if (logic.moveLogic(pile1, cardNumber, pile2)) {
+        if (logic.moveLogic(pile1, cardNumber, pile2) != null) {
+            ArrayList<Card> addCards = logic.moveLogic(pile1, cardNumber, pile2);
+            
+            for (Card card : addCards) {
+                // Add each of the new cards to Pile2
+                pile2.addCardToPile(card);
+
+                // Remove each card from Pile1
+                pile1.getCardsInPile().remove(card);
+
+            }
+            
+        }
+
+
+    }
+
+    private String convertInput(String input) {
+
+        if (input.equals("a")) {
+            return "1";
+
+        } else if (input.equals("j")) {
+            return "11";
+
+        } else if (input.equals("q")) {
+            return "12";
+
+        } else if (input.equals("k")) {
+            return "13";
 
         }
 
+        return input;
 
     }
 
