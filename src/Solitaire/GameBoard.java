@@ -76,7 +76,6 @@ public class GameBoard {
             Pile currentPile = getPile(pile);
             if (currentPile.getCardCount() > 0) {
                 currentPile.getCardAtIndex(currentPile.getCardCount() - 1).setVisible(true);
-                System.out.println("Number: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardNumber() + "     Colour: " + currentPile.getCardAtIndex(currentPile.getCardCount() - 1).getCardColour());
 
             }
 

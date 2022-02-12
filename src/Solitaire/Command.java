@@ -78,7 +78,7 @@ public class Command {
 
     }
 
-    public String validateWord(String word) {
+    private String validateWord(String word) {
 
         if (word == null) {
             return "x";

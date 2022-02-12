@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Draw {
     
-    private static final String BLUE = "\033[0;34m";    // BLUE
+    // private static final String BLUE = "\033[0;34m";    // BLUE
     private static final String RED = "\033[0;31m";     // RED
     private static final String RESET = "\033[0m";  // Text Reset
     
@@ -16,7 +16,7 @@ public class Draw {
 
     }
 
-    public void clearBoard() {
+    private void clearBoard() {
 
         for (int x = 0; x < 89; x++) {
             for (int y = 0; y < 42; y++) {
@@ -28,7 +28,7 @@ public class Draw {
 
     }
 
-    public void printBoard(int cardCount, Waste waste, ArrayList<Foundation> foundations, ArrayList<Pile> piles) {
+    public void printBoard(int cardCount, Waste waste, ArrayList<Foundation> foundations, ArrayList<Pile> piles, boolean move) {
 
         clearBoard();
         printStock(cardCount);
@@ -36,6 +36,7 @@ public class Draw {
         printFoundations(foundations);
         printTablePiles(piles);
         printGameLabels(waste);
+        printValidMove(move);
 
         for (int y = 0; y < 42; y++) {
             for (int x = 0; x < 89; x++) {
@@ -50,7 +51,7 @@ public class Draw {
 
     }
 
-    public void printStock(int cardCount) {
+    private void printStock(int cardCount) {
 
         if (cardCount > 0) {
 
@@ -84,7 +85,7 @@ public class Draw {
 
     }    
 
-    public void printWaste(Waste waste) {
+    private void printWaste(Waste waste) {
 
         Card backCard = waste.getBackCard();
         Card midCard = waste.getMidCard();
@@ -126,7 +127,7 @@ public class Draw {
 
     }
 
-    public void printFoundations(ArrayList<Foundation> foundations) {
+    private void printFoundations(ArrayList<Foundation> foundations) {
 
         int pointer = 35;
 
@@ -151,7 +152,7 @@ public class Draw {
 
     }
 
-    public void printTablePiles(ArrayList<Pile> piles) {
+    private void printTablePiles(ArrayList<Pile> piles) {
 
         int pointerX = 5;
 
@@ -204,7 +205,7 @@ public class Draw {
 
     }
 
-    public void printGameLabels(Waste waste) {
+    private void printGameLabels(Waste waste) {
 
         // Stock
         drawIndicator(7, 2, "S");
@@ -235,7 +236,7 @@ public class Draw {
 
     }
 
-    public void drawEmptySpace(int x, int y) {
+    private void drawEmptySpace(int x, int y) {
 
         // Card top
         board[x+1][y] = "_";
@@ -255,7 +256,7 @@ public class Draw {
 
     }
 
-    public void drawCardTemplate(int x, int y) {
+    private void drawCardTemplate(int x, int y) {
 
         // Card top
         board[x][y] = " ";
@@ -291,7 +292,7 @@ public class Draw {
 
     }
 
-    public void drawCutCard(int x, int y) {
+    private void drawCutCard(int x, int y) {
 
         // The top is not defined for this shape
         
@@ -320,7 +321,7 @@ public class Draw {
 
     }
 
-    public void drawIndicator(int x, int y, String input) {
+    private void drawIndicator(int x, int y, String input) {
 
         board[x][y] = "[";
         board[x + 1][y] = input;
@@ -328,7 +329,7 @@ public class Draw {
 
     }
 
-    public void drawIndicator(int x, int y, String input, int index) {
+    private void drawIndicator(int x, int y, String input, int index) {
 
         board[x][y] = "[";
         board[x + 1][y] = input;
@@ -337,7 +338,7 @@ public class Draw {
 
     }
 
-    public void drawHiddenCard(int x, int y) {
+    private void drawHiddenCard(int x, int y) {
 
         board[x][y] = " ";
         board[x + 1][y] = "_";
@@ -357,7 +358,7 @@ public class Draw {
 
     }
 
-    public void drawStackedCard(int x, int y, String number, String suit, String colour) {
+    private void drawStackedCard(int x, int y, String number, String suit, String colour) {
 
         board[x][y + 1] = "|";
         board[x + 4][y + 1] = "_";
@@ -380,7 +381,7 @@ public class Draw {
 
     }
 
-    public void drawCard(int x, int y, String number, String suit) {
+    private void drawCard(int x, int y, String number, String suit) {
 
         // Card top
         board[x][y] = " ";
@@ -418,7 +419,7 @@ public class Draw {
 
     }
 
-    public void drawCardValues(int x, int y, String number, String suit, String colour) {
+    private void drawCardValues(int x, int y, String number, String suit, String colour) {
 
         // Card number and Suit
         if (number.equals("10")) {
@@ -434,7 +435,7 @@ public class Draw {
 
     }
 
-    public void drawWasteValues(int x, int y, String number, String suit, String colour) {
+    private void drawWasteValues(int x, int y, String number, String suit, String colour) {
 
         if (number.equals("10")) {
             board[x + 1][y + 1] = getCardColour(colour, "1");
@@ -449,7 +450,7 @@ public class Draw {
 
     }
 
-    public String getCardColour(String colour, String input) {
+    private String getCardColour(String colour, String input) {
 
         if (colour.equals("red")) {
             return RED + input + RESET;
@@ -457,6 +458,29 @@ public class Draw {
         }
 
         return input;
+
+    }
+
+    private void printValidMove(boolean valid) {
+
+        // // line 40
+
+        String moveStatus = "";
+
+        if (valid) {
+            moveStatus = "MOVE STATUS: VALID";
+
+        } else {
+            moveStatus = "MOVE STATUS: INVALID";
+
+        }
+
+        board[0][41] = moveStatus;
+
+        for (int i = 0; i < moveStatus.length(); i++) {
+            board[1 + i][40] = "";
+
+        }
 
     }
 }

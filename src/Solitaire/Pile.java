@@ -12,19 +12,19 @@ public class Pile {
 
     }
 
-    public int getCardCount() {
+    protected int getCardCount() {
 
         return cards.size();
 
     }
 
-    public void addCardToPile(Card card) {
+    protected void addCardToPile(Card card) {
 
         cards.add(card);
 
     }
 
-    public Card getCardAtIndex(int index) {
+    protected Card getCardAtIndex(int index) {
 
         if (cards.size() > 0) {
             return cards.get(index);
@@ -35,19 +35,19 @@ public class Pile {
 
     }
 
-    public void removeCardAtIndex(int index) {
+    protected void removeCardAtIndex(int index) {
 
         cards.remove(index);
 
     }
 
-    public ArrayList<Card> getCardsInPile() {
+    protected ArrayList<Card> getCardsInPile() {
 
         return cards;
 
     }
 
-    public boolean isEmpty() {
+    protected boolean isEmpty() {
 
         if (cards.size() == 0) {
             return true;
@@ -58,7 +58,7 @@ public class Pile {
 
     }
 
-    public Card getBottomCard() {
+    protected Card getBottomCard() {
 
         if (cards.size() > 0) {
             return cards.get(cards.size() - 1);
@@ -69,13 +69,13 @@ public class Pile {
 
     }
 
-    public void removeCardFromBottom() {
+    protected void removeCardFromBottom() {
 
         cards.remove(cards.size() - 1);
 
     }
 
-    public ArrayList<Card> getVisibleCards() {
+    protected ArrayList<Card> getVisibleCards() {
 
         ArrayList<Card> visibleCards = new ArrayList<>();
 
@@ -91,7 +91,7 @@ public class Pile {
 
     }
 
-    public ArrayList<Card> getHiddenCards() {
+    protected ArrayList<Card> getHiddenCards() {
 
         ArrayList<Card> hiddenCards = new ArrayList<>();
 
@@ -107,7 +107,7 @@ public class Pile {
 
     }
 
-    public void removeVisibleCards() {
+    protected void removeVisibleCards() {
 
         for (Card card : cards) {
             if (card.getCardVisible()) {

@@ -271,8 +271,6 @@ public class Logic {
 
     }
 
-
-
     public boolean sameColour(Card card1, Card card2) {
 
         if (card1.getCardColour().equals(card2.getCardColour())) {

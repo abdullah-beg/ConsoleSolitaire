@@ -8,25 +8,22 @@ public class Main {
     private GameBoard game;
     private Parser parser;
     private Logic logic;
-    private Draw draw;
+    private boolean validMove;
 
     private Main() {
 
         parser = new Parser();
         game = new GameBoard();
         logic = new Logic();
-        draw = new Draw();
+        validMove = false;
 
     }
 
     private boolean gameFinished() {
 
-        for (int pile = 0; pile < 7; pile++) {
-            for (Card card : game.getPile(pile).getCardsInPile()) {
-                if (!card.getCardVisible()) {
-                    return false;
-
-                }
+        for (Foundation foundation : game.getFoundations()) {
+            if (foundation.isEmpty() || foundation.getBottomCard().getCardNumber() != 13) {
+                return false;
 
             }
 
@@ -36,7 +33,7 @@ public class Main {
 
     }
 
-    public void processCommand(String word1) {
+    private void processCommand(String word1) {
 
         if (word1.equals("help")) {
             System.out.println("get good");
@@ -52,10 +49,9 @@ public class Main {
 
         logic.cycleStock(game.getStock(), game.getWaste());
 
-
     }
 
-    public void processCommand(String word1, String word2) {
+    private void processCommand(String word1, String word2) {
 
 
         if (word1.equals("w")) {
@@ -71,6 +67,8 @@ public class Main {
                     pile.addCardToPile(waste.getFrontCard());
                     waste.removeCardFromBottom();
                     waste.setCardOrder();
+
+                    setValidMove(true);
         
                 }
 
@@ -84,6 +82,8 @@ public class Main {
                     foundation.addCardToPile(waste.getFrontCard());
                     waste.removeCardFromBottom();
                     waste.setCardOrder();
+
+                    setValidMove(true);
 
                 }
 
@@ -101,6 +101,8 @@ public class Main {
 
                     pile.addCardToPile(foundation.getBottomCard());
                     foundation.removeCardFromBottom();
+
+                    setValidMove(true);
         
                 }
 
@@ -113,6 +115,8 @@ public class Main {
 
                     foundation2.addCardToPile(foundation.getBottomCard());
                     foundation.removeCardFromBottom();
+
+                    setValidMove(true);
         
                 }
 
@@ -132,6 +136,8 @@ public class Main {
                         pile2.addCardToPile(card);
                         pile.getCardsInPile().remove(card);
                     }
+
+                    setValidMove(true);
         
                 }
 
@@ -143,6 +149,8 @@ public class Main {
                 
                     foundation.addCardToPile(pile.getBottomCard());
                     pile.removeCardFromBottom();
+
+                    setValidMove(true);
         
                 }
 
@@ -152,7 +160,7 @@ public class Main {
 
     }
 
-    public void processCommand(String word1, String word2, String word3) {
+    private void processCommand(String word1, String word2, String word3) {
 
         Pile pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
         Pile pile2 = game.getPile(Integer.parseInt((word3).substring(1,2)) - 1);
@@ -169,6 +177,8 @@ public class Main {
                 pile1.getCardsInPile().remove(card);
 
             }
+
+            setValidMove(true);
             
         }
 
@@ -192,6 +202,18 @@ public class Main {
         }
 
         return input;
+
+    }
+
+    private void setValidMove(boolean input) {
+
+        validMove = input;
+
+    }
+
+    private boolean getValidMove() {
+
+        return validMove;
 
     }
 
@@ -221,14 +243,11 @@ public class Main {
 
                 }
 
-            } else {
-
-
-
             }
 
             main.game.showFrontCard();
-            draw.printBoard(main.game.getStock().getCardCount(), main.game.getWaste(), main.game.getFoundations(), main.game.getPiles());
+            draw.printBoard(main.game.getStock().getCardCount(), main.game.getWaste(), main.game.getFoundations(), main.game.getPiles(), main.getValidMove());
+            main.setValidMove(false);
 
         }
 
