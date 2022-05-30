@@ -6,26 +6,26 @@ import java.util.Collections;
 public class GameBoard {
     
     private ArrayList<Card> cards;
-    private ArrayList<Pile> tablePiles;
+    private Pile[] tablePiles;
     private Stock stockPile;
     private Waste wastePile;
-    private ArrayList<Foundation> foundationPiles;
+    private Foundation[] foundationPiles;
 
     public GameBoard() {
 
         cards = new ArrayList<>();
-        tablePiles = new ArrayList<>();
+        tablePiles = new Pile[7];
         wastePile = new Waste();
         stockPile = new Stock();
-        foundationPiles = new ArrayList<>();
+        foundationPiles = new Foundation[4];
 
         for(int i = 0; i < 7; i++) {
-            tablePiles.add(new Pile());
+            tablePiles[i] = new Pile();
 
         }
 
         for(int i = 0; i < 4; i++) {
-            foundationPiles.add(new Foundation());
+            foundationPiles[i] = new Foundation();
 
         }
 
@@ -97,11 +97,11 @@ public class GameBoard {
 
     public Pile getPile(int index) {
 
-        return tablePiles.get(index);
+        return tablePiles[index];
 
     }
 
-    public ArrayList<Pile> getPiles() {
+    public Pile[] getPiles() {
 
         return tablePiles;
 
@@ -109,11 +109,11 @@ public class GameBoard {
 
     public Foundation getFoundation(int index) {
 
-        return foundationPiles.get(index);
+        return foundationPiles[index];
 
     }
 
-    public ArrayList<Foundation> getFoundations() {
+    public Foundation[] getFoundations() {
 
         return foundationPiles;
 

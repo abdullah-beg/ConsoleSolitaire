@@ -28,7 +28,7 @@ public class Draw {
 
     }
 
-    public void printBoard(int cardCount, Waste waste, ArrayList<Foundation> foundations, ArrayList<Pile> piles, boolean move) {
+    public void printBoard(int cardCount, Waste waste, Foundation[] foundations, Pile[] piles, boolean move) {
 
         clearBoard();
         printStock(cardCount);
@@ -127,7 +127,7 @@ public class Draw {
 
     }
 
-    private void printFoundations(ArrayList<Foundation> foundations) {
+    private void printFoundations(Foundation[] foundations) {
 
         int pointer = 35;
 
@@ -152,7 +152,7 @@ public class Draw {
 
     }
 
-    private void printTablePiles(ArrayList<Pile> piles) {
+    private void printTablePiles(Pile[] piles) {
 
         int pointerX = 5;
 

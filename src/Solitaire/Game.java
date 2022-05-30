@@ -55,7 +55,8 @@ public class Game {
         public void processCommand(String word1) {
     
             if (word1.equals("help")) {
-                System.out.println("get good");
+                //TODO
+                System.out.println("yet to be written");
                 return;
     
             } else if (word1.equals("undo")) {
@@ -63,7 +64,6 @@ public class Game {
                 return;
     
             } else if (word1.equals("restart")) {
-                System.out.println("You have selected restart!");
                 restartGame();
                 return;
     
