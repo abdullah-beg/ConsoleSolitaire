@@ -8,7 +8,8 @@ public class Command {
 
         "undo",
         "help",
-        "s"
+        "s",
+        "restart"
         
     };
 
