@@ -38,6 +38,8 @@ public class Main {
             draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove());
             game.setValidMove(false);
 
+            game.getState();
+
         }
 
         System.out.println("!!!~~~~~~~~~~GAME OVER~~~~~~~~~~!!!");

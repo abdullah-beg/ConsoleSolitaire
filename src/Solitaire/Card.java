@@ -8,11 +8,16 @@ public class Card {
     private boolean visible;
 
 
-    public Card(String suit, int number, String colour) {
-        this.colour = colour;
-        this.suit = suit;
+    public Card(int number, String suit, String colour) {
+        this(number, suit, colour, false);
+
+    }
+
+    public Card(int number, String suit, String colour, boolean visible) {
         this.number = number;
-        visible = false;
+        this.suit = suit;
+        this.colour = colour;
+        this.visible = visible;
 
     }
 

@@ -9,6 +9,7 @@ public class Game {
         private GameBoard game;
         private Parser parser;
         private Logic logic;
+        private State state;
         private boolean validMove;
     
         public Game() {
@@ -16,8 +17,15 @@ public class Game {
             parser = new Parser();
             game = new GameBoard();
             logic = new Logic();
+            state = new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles());
             validMove = false;
     
+        }
+
+        public State getState() {
+
+            return state;
+
         }
 
         public GameBoard getBoard() {

@@ -43,13 +43,13 @@ public class GameBoard {
         String colour = "black";
 
         for (int suit = 0; suit < 4; suit++) {
-            for (int card = 1; card < 14; card++) {
+            for (int cardNumber = 1; cardNumber < 14; cardNumber++) {
                 if (suit >= 2) {
                     colour = "red";
                     
                 }
 
-                cards.add(new Card(suits.substring(suit, suit + 1), card, colour));
+                cards.add(new Card(cardNumber, suits.substring(suit, suit + 1), colour));
 
             }
 
