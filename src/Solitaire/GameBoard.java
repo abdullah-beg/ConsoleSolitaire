@@ -89,9 +89,21 @@ public class GameBoard {
 
     }
 
+    public void setStock(Stock stockPile) {
+
+        this.stockPile = stockPile;
+
+    }
+
     public Waste getWaste() {
 
         return wastePile;
+
+    }
+
+    public void setWaste(Waste wastePile) {
+
+        this.wastePile = wastePile;
 
     }
 
@@ -107,6 +119,12 @@ public class GameBoard {
 
     }
 
+    public void setPiles(Pile[] tablePiles) {
+
+        this.tablePiles = tablePiles;
+
+    }
+
     public Foundation getFoundation(int index) {
 
         return foundationPiles[index];
@@ -116,6 +134,12 @@ public class GameBoard {
     public Foundation[] getFoundations() {
 
         return foundationPiles;
+
+    }
+
+    public void setFoundations(Foundation[] foundationPiles) {
+
+        this.foundationPiles = foundationPiles;
 
     }
 

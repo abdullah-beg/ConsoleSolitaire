@@ -14,6 +14,12 @@ public class Waste extends Pile {
 
     }
 
+    public Waste(ArrayList<Card> cards) {
+
+        this.cards = cards;
+
+    }
+
     public void setCardOrder() {
 
         frontCard = null;

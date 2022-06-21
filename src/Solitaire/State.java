@@ -8,26 +8,46 @@ public class State {
     private ArrayList<ArrayList<String>> foundations;
     private ArrayList<ArrayList<String>> piles;
 
+    private Waste wastePile;
+    private Stock stockPile;
+    private Foundation[] foundationPiles;
+    private Pile[] tablePiles;
+
     public State(Waste waste, Stock stock, Foundation[] foundations, Pile[] piles) {
 
-        this.waste = convertListToString(waste.getCardsInPile());
-        this.stock = convertListToString(stock.getCardsInPile());
+        this.waste = convertCardToString(waste.getCardsInPile());
+        this.stock = convertCardToString(stock.getCardsInPile());
 
         this.foundations = new ArrayList<>();
         for (Foundation f : foundations) {
-            this.foundations.add(convertListToString(f.getCardsInPile()));
+            this.foundations.add(convertCardToString(f.getCardsInPile()));
 
         }
 
         this.piles = new ArrayList<>();
         for (Pile p : piles) {
-            this.piles.add(convertListToString(p.getCardsInPile()));
+            this.piles.add(convertCardToString(p.getCardsInPile()));
 
         }
 
+        wastePile = new Waste(convertStringToCard(this.waste));
+        stockPile = new Stock(convertStringToCard(this.stock));
+        
+        foundationPiles = new Foundation[4];
+        for (int index = 0; index < 4; index++) {
+            foundationPiles[index] = new Foundation(convertStringToCard(this.foundations.get(index)));
+
+        }
+
+        tablePiles = new Pile[7];
+        for (int index = 0; index < 7; index++) {
+            tablePiles[index] = new Pile(convertStringToCard(this.piles.get(index)));
+
+        }
+        
     }
 
-    public ArrayList<String> convertListToString(ArrayList<Card> cards) {
+    public ArrayList<String> convertCardToString(ArrayList<Card> cards) {
 
         ArrayList<String> output = new ArrayList<>();
 
@@ -45,8 +65,14 @@ public class State {
 
         ArrayList<Card> cards = new ArrayList<>();
 
+        if (cardsString.size() == 0) {
+
+            System.out.println("wow");
+
+        }
+
         for (String s : cardsString) {
-            String[] split = s.split(" ");
+            String[] split = s.split("-");
 
             cards.add(new Card
             (
@@ -59,6 +85,30 @@ public class State {
         }
 
         return cards;
+
+    }
+
+    public Waste getWastePile() {
+
+        return wastePile;
+
+    }
+
+    public Stock getStockPile() {
+
+        return stockPile;
+
+    }
+
+    public Foundation[] getFoundationPiles() {
+
+        return foundationPiles;
+
+    }
+
+    public Pile[] getTablePiles() {
+
+        return tablePiles;
 
     }
 

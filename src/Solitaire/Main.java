@@ -8,6 +8,7 @@ public class Main {
         Draw draw = new Draw();
 
         game.getBoard().showFrontCard();
+        game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
         draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove());
         game.setValidMove(false);
 
@@ -24,17 +25,26 @@ public class Main {
                 if (command.getSecondWord() == null) {
                     game.processCommand(word1);
 
-                } else if (command.getThirdWord() == null) {
-                    game.processCommand(word1, word2);
+                } else  {
+                    if (command.getThirdWord() == null) {
+                        game.processCommand(word1, word2);
 
-                } else {
-                    game.processCommand(word1, word2, word3);
+                    } else {
+                        game.processCommand(word1, word2, word3);
+                    
+                    }
+
+                    if (game.getValidMove()) {
+                        game.getBoard().showFrontCard();
+                        game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
+                        game.incrementMoveCount();
+
+                    }
 
                 }
 
             }
 
-            game.getBoard().showFrontCard();
             draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove());
             game.setValidMove(false);
 

@@ -10,15 +10,18 @@ public class Game {
         private Parser parser;
         private Logic logic;
         private State state;
+        private Undo undo;
         private boolean validMove;
+        private int moveCount;
     
         public Game() {
     
             parser = new Parser();
             game = new GameBoard();
             logic = new Logic();
-            state = new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles());
+            undo = new Undo();
             validMove = false;
+            moveCount = 0;
     
         }
 
@@ -45,6 +48,12 @@ public class Game {
             return logic;
 
         }
+
+        public Undo getUndo() {
+
+            return undo;
+
+        }
     
         public boolean gameFinished() {
     
@@ -62,24 +71,38 @@ public class Game {
     
         public void processCommand(String word1) {
     
-            if (word1.equals("help")) {
-                //TODO
-                System.out.println("yet to be written");
-                return;
-    
-            } else if (word1.equals("undo")) {
-                System.out.println("idk how to undo yet");
-                return;
-    
-            } else if (word1.equals("restart")) {
-                restartGame();
-                return;
-    
+            // Only valid command words can make it to this point.
+            
+            switch (word1) {
+
+                case "help" : System.out.println("help"); break;
+
+                case "undo" : undoRoutine(); break;
+
+                case "restart" : restartGame(); setMoveCount(0); break;
+
+                case "s" : 
+                    logic.cycleStock(game.getStock(), game.getWaste()); 
+                    undo.doMove(new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles()));
+                    incrementMoveCount();
+                    break;
+
             }
+
+            // if (word1.equals("help")) {
+            //     System.out.println("yet to be written");
+                
+            // } else if (word1.equals("undo")) {
+            //     System.out.println("idk how to undo yet");
+                
+            // } else if (word1.equals("restart")) {
+            //     restartGame();
+                
+            // }
     
             // If this has been reached, they have inputted "s"
     
-            logic.cycleStock(game.getStock(), game.getWaste());
+            // logic.cycleStock(game.getStock(), game.getWaste());
     
         }
     
@@ -254,6 +277,49 @@ public class Game {
             System.out.println("Restarting game...");
             game = new GameBoard();
 
+        }
+
+        public void incrementMoveCount() {
+
+            moveCount++;
+
+        }
+
+        public void decrementMoveCount() {
+
+            moveCount--;
+
+        }
+
+        public int getMoveCount() {
+
+            return moveCount;
+
+        }
+
+        public void setMoveCount(int moveCount) {
+
+            this.moveCount = moveCount;
+
+        }
+
+        public void undoRoutine() {
+
+            if (undo.isUndoable()) {
+                undo.undoMove();
+                State old = undo.getMostRecentState();
+
+                game.setWaste(old.getWastePile());
+                game.setStock(old.getStockPile());
+                game.setFoundations(old.getFoundationPiles());
+                game.setPiles(old.getTablePiles());
+
+            } else {
+
+                System.out.println("There are no moves to undo!!!");
+
+            }
+            
         }
 
 }
