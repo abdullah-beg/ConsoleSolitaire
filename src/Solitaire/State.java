@@ -3,15 +3,10 @@ package Solitaire;
 import java.util.ArrayList;
 
 public class State {
-    
+
     private ArrayList<String> waste, stock;
     private ArrayList<ArrayList<String>> foundations;
     private ArrayList<ArrayList<String>> piles;
-
-    private Waste wastePile;
-    private Stock stockPile;
-    private Foundation[] foundationPiles;
-    private Pile[] tablePiles;
 
     public State(Waste waste, Stock stock, Foundation[] foundations, Pile[] piles) {
 
@@ -29,6 +24,10 @@ public class State {
             this.piles.add(convertCardToString(p.getCardsInPile()));
 
         }
+        
+    }
+
+    public void convertBoard(Waste wastePile, Stock stockPile, Foundation[] foundationPiles, Pile[] tablePiles) {
 
         wastePile = new Waste(convertStringToCard(this.waste));
         stockPile = new Stock(convertStringToCard(this.stock));
@@ -44,8 +43,45 @@ public class State {
             tablePiles[index] = new Pile(convertStringToCard(this.piles.get(index)));
 
         }
-        
+
     }
+
+    public Waste convertWaste() {
+
+        return new Waste(convertStringToCard(this.waste));
+
+    }
+
+    public Stock convertStock() {
+
+        return new Stock(convertStringToCard(this.stock));
+
+    }
+
+    public Foundation[] convertFoundations() {
+
+        Foundation[] foundationPiles = new Foundation[4];
+        for (int index = 0; index < 4; index++) {
+            foundationPiles[index] = new Foundation(convertStringToCard(this.foundations.get(index)));
+
+        }
+
+        return foundationPiles;
+
+    }
+
+    public Pile[] convertTablePiles() {
+
+        Pile[] tablePiles = new Pile[7];
+        for (int index = 0; index < 7; index++) {
+            tablePiles[index] = new Pile(convertStringToCard(this.piles.get(index)));
+
+        }
+
+        return tablePiles;
+
+    }
+
 
     public ArrayList<String> convertCardToString(ArrayList<Card> cards) {
 
@@ -65,12 +101,6 @@ public class State {
 
         ArrayList<Card> cards = new ArrayList<>();
 
-        if (cardsString.size() == 0) {
-
-            System.out.println("wow");
-
-        }
-
         for (String s : cardsString) {
             String[] split = s.split("-");
 
@@ -88,28 +118,28 @@ public class State {
 
     }
 
-    public Waste getWastePile() {
+    // public Waste getWastePile() {
 
-        return wastePile;
+    //     return wastePile;
 
-    }
+    // }
 
-    public Stock getStockPile() {
+    // public Stock getStockPile() {
 
-        return stockPile;
+    //     return stockPile;
 
-    }
+    // }
 
-    public Foundation[] getFoundationPiles() {
+    // public Foundation[] getFoundationPiles() {
 
-        return foundationPiles;
+    //     return foundationPiles;
 
-    }
+    // }
 
-    public Pile[] getTablePiles() {
+    // public Pile[] getTablePiles() {
 
-        return tablePiles;
+    //     return tablePiles;
 
-    }
+    // }
 
 }

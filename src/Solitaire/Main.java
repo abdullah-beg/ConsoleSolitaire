@@ -8,7 +8,7 @@ public class Main {
         Draw draw = new Draw();
 
         game.getBoard().showFrontCard();
-        game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
+        game.getUndo().setBaseState(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
         draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove());
         game.setValidMove(false);
 
@@ -47,8 +47,6 @@ public class Main {
 
             draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove());
             game.setValidMove(false);
-
-            game.getState();
 
         }
 
