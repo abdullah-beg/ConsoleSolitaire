@@ -73,6 +73,9 @@ public class Command {
         } else if (userCommand.equals("LVL")) {
             return true;
 
+        } else if (userCommand.equals("UUx") || userCommand.equals("ULx")) {
+            return true;
+
         }
 
         return false;

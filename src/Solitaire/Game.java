@@ -13,6 +13,8 @@ public class Game {
     private boolean validMove;
     private int moveCount;
 
+    private String[] message;
+
     public Game() {
 
         parser = new Parser();
@@ -21,6 +23,8 @@ public class Game {
         undo = new Undo();
         validMove = false;
         moveCount = 0;
+
+        message = new String[] {""};
 
     }
 
@@ -74,40 +78,90 @@ public class Game {
         
         switch (word1) {
 
-            case "help" : System.out.println("help"); break;
+            case "help" : 
+
+                message = new String[] 
+                {
+                    "The goal of the game is to sort all the cards into their suits",
+                    "To move a card type: <location1> <location2> For Example: 'p7 p2' or 'w f3' or 'f1 p2'",
+                    "For detailed insutrctions please visit: 'https://bicyclecards.com/how-to-play/solitaire/'",
+                    "",
+                    "--- Commands -----------------------------------",
+                    " - help    - restart    - undo    - s    - w"
+                };
+
+                setValidMove(true); break;
 
             case "undo" : undoRoutine(); break;
 
-            case "restart" : restartGame(); setMoveCount(0); break;
+            case "restart" : restartGame(); setMoveCount(0); setValidMove(true); break;
 
             case "s" : 
                 logic.cycleStock(game.getStock(), game.getWaste()); 
                 undo.doMove(new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles()));
                 incrementMoveCount();
+                setValidMove(true);
                 break;
 
         }
-
-        // if (word1.equals("help")) {
-        //     System.out.println("yet to be written");
-            
-        // } else if (word1.equals("undo")) {
-        //     System.out.println("idk how to undo yet");
-            
-        // } else if (word1.equals("restart")) {
-        //     restartGame();
-            
-        // }
-
-        // If this has been reached, they have inputted "s"
-
-        // logic.cycleStock(game.getStock(), game.getWaste());
 
     }
 
     public void processCommand(String word1, String word2) {
 
-        if (word1.equals("w")) {
+        if (word1.equals("help")) {
+            
+            switch (word2) {
+
+                case "s" : 
+                    message = new String[] 
+                    {
+                        "~~~ s",
+                        " - Usage: s",
+                        " - Action: cycles the cards in the stock.",
+                        " - Example: s"
+                    }; 
+                    break;
+
+
+                case "w" : 
+                    message = new String[] 
+                    {
+                      "~~~ w",
+                      " - Usage: w",
+                      " - Action: select the right-most card in the waste.",
+                      " - Example: w"  
+                    };
+                    break;
+                    
+
+                case "undo" :
+                    message = new String[] 
+                    {
+                        "~~~ undo",
+                        " - Usage: undo",
+                        " - Action: undoes the most recent move.",
+                        " - Example: undo"
+                    };
+                    break;
+                
+
+                case "restart" :
+                    message = new String[] 
+                    {
+                        "~~~ restart",
+                        " - Usage: restart",
+                        " - Action: restarts the game.",
+                        " - Example: restart"
+                    };
+                    break;
+
+                
+
+            }
+
+
+        } else if (word1.equals("w")) {
 
             Waste waste = game.getWaste();
 
@@ -272,8 +326,14 @@ public class Game {
 
     private void restartGame() {
 
-        System.out.println("Restarting game...");
+        message = new String[] 
+        {
+            "Game Restarted!"
+        };
+
         game = new GameBoard();
+        undo.setBaseState(new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles()));
+        undo.clearMoveStack();
 
     }
 
@@ -307,7 +367,14 @@ public class Game {
 
         switch (undo.getMoveStackSize()) {
 
-            case 0 : System.out.println("!!!~~~There are no moves to undo~~~!!!"); return;
+            case 0 : 
+                
+                message = new String[] 
+                {
+                    "There are no moves to undo!"
+                };
+
+                setValidMove(false); return;
 
             case 1 : undo.undoMove(); old = undo.getBaseState(); break;
 
@@ -319,7 +386,22 @@ public class Game {
         game.setStock(old.convertStock());
         game.setFoundations(old.convertFoundations());
         game.setPiles(old.convertTablePiles());
+
+        setValidMove(true);
+        decrementMoveCount();
         
+    }
+
+    public String[] getGameMessage() {
+
+        return message;
+
+    }
+
+    public void clearMessage() {
+
+        message = new String[] {""};
+
     }
 
 }

@@ -11,14 +11,10 @@ public class Logic {
     public void cycleStock(Stock stock, Waste waste) {
 
         if (!stock.isEmpty()) {
-            
+
             waste.takeCardFromStock(stock.getCardAtIndex(0));
             stock.removeCardAtIndex(0);
             waste.setCardOrder();
-
-
-            System.out.println("Number of cards in stock: " + stock.getCardCount() + "Front card in waste: " + waste.getFrontCard().getCardNumber());
-
 
         } else {
 

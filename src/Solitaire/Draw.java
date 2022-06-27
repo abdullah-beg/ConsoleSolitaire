@@ -8,18 +8,21 @@ public class Draw {
     private static final String RED = "\033[0;31m";     // RED
     private static final String RESET = "\033[0m";  // Text Reset
     
+    private final int width = 90;
+    private final int height = 42;
+
     private String[][] board;
 
     public Draw() {
 
-        board = new String[89][42];
+        board = new String[width][height];
 
     }
 
     private void clearBoard() {
 
-        for (int x = 0; x < 89; x++) {
-            for (int y = 0; y < 42; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 board[x][y] = " ";
 
             }
@@ -28,7 +31,7 @@ public class Draw {
 
     }
 
-    public void printBoard(int cardCount, Waste waste, Foundation[] foundations, Pile[] piles, boolean move) {
+    public void printBoard(int cardCount, Waste waste, Foundation[] foundations, Pile[] piles, boolean move, int moveCount, String[] message) {
 
         clearBoard();
         printStock(cardCount);
@@ -37,17 +40,26 @@ public class Draw {
         printTablePiles(piles);
         printGameLabels(waste);
         printValidMove(move);
+        printMoveCount(moveCount);
+        printHelpMessage(message);
 
-        for (int y = 0; y < 42; y++) {
-            for (int x = 0; x < 89; x++) {
-                System.out.print(board[x][y]);
-            
+        String[] output = new String[height];
+
+        for (int index = 0; index < height; index++) {
+
+            output[index] = "";
+
+            for (int x = 0; x < width; x++) {
+                output[index] += "" + board[x][index];
+
             }
-
-            System.out.println();
 
         }
 
+        for (String s : output) {
+            System.out.println(s);
+
+        }
 
     }
 
@@ -475,12 +487,31 @@ public class Draw {
 
         }
 
-        board[0][41] = moveStatus;
-
-        for (int i = 0; i < moveStatus.length(); i++) {
-            board[1 + i][40] = "";
+        for (int index = 0; index < moveStatus.length(); index++) {
+            board[1 + index][height - 1] = Character.toString(moveStatus.charAt(index));
 
         }
 
     }
+
+    private void printMoveCount(int moveCount) {
+
+        String moveCountString = "# OF MOVES : " + moveCount;
+
+        for (int index = 0; index < moveCountString.length(); index++) {
+            board[1 + index][height - 2] = Character.toString(moveCountString.charAt(index));
+
+        }
+
+    }
+
+    private void printHelpMessage(String[] message) {
+
+        for (int layer = 0; layer < message.length; layer++) {
+            board[width - 1][height - 7 - layer] = message[message.length - 1 - layer];
+
+        }
+
+    }
+
 }

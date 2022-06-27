@@ -26,17 +26,21 @@ public class Undo {
 
     }
 
+    public void clearMoveStack() {
+
+        moveStack = new Stack<>();
+
+    }
+
     public void doMove(State state) {
 
         moveStack.add(state);
-        System.out.println("Size after adding : " + moveStack.size());
 
     }
 
     public void undoMove() {
 
         moveStack.pop();
-        System.out.println("Size after removing : " + moveStack.size());
         
     }
 
