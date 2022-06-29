@@ -1,18 +1,5 @@
-## Getting Started
+# Console Solitaire
+The classic solitaire game in the format of a console/terminal.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Screenshot
+![SolitaireScreenshot](https://user-images.githubusercontent.com/98782131/176542601-904c9f4b-a31e-43c8-b816-1b66bfcf5b5f.png)
