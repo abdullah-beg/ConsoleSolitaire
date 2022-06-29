@@ -163,4 +163,13 @@ public class GameBoard {
 
     }
 
+    public void setState(State state) {
+
+        setWaste(state.convertWaste());
+        setStock(state.convertStock());
+        setFoundations(state.convertFoundations());
+        setPiles(state.convertTablePiles());
+
+    }
+
 }

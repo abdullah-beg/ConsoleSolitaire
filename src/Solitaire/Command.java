@@ -9,7 +9,8 @@ public class Command {
         "undo",
         "help",
         "s",
-        "restart"
+        "restart",
+        "new"
         
     };
 
@@ -56,10 +57,7 @@ public class Command {
 
         String userCommand = "" + validateWord(word1) + validateWord(word2) + validateWord(word3);
 
-        if (userCommand.equals("Uxx")) {
-            return true;
-
-        } else if (userCommand.equals("LLx")) {
+        if (userCommand.equals("LLx")) {
             if (word2.equals("w")) {
                 return false;
 
@@ -73,8 +71,15 @@ public class Command {
         } else if (userCommand.equals("LVL")) {
             return true;
 
-        } else if (userCommand.equals("UUx") || userCommand.equals("ULx")) {
-            return true;
+        } else if (Character.toString(userCommand.charAt(0)).equals("U")) {
+            
+            switch (word1) {
+
+                case "help" : return true;
+
+                default : word2 = null; word3 = null; return true;
+
+            }
 
         }
 

@@ -13,6 +13,8 @@ public class Game {
     private boolean validMove;
     private int moveCount;
 
+    private boolean skip;
+
     private String[] message;
 
     public Game() {
@@ -23,6 +25,7 @@ public class Game {
         undo = new Undo();
         validMove = false;
         moveCount = 0;
+        skip = false;
 
         message = new String[] {""};
 
@@ -84,24 +87,24 @@ public class Game {
                 {
                     "The goal of the game is to sort all the cards into their suits",
                     "To move a card type: <location1> <location2> For Example: 'p7 p2' or 'w f3' or 'f1 p2'",
+                    "You can also move specific cards: <location1> <card number> <location2>",
                     "For detailed insutrctions please visit: 'https://bicyclecards.com/how-to-play/solitaire/'",
                     "",
-                    "--- Commands -----------------------------------",
-                    " - help    - restart    - undo    - s    - w"
+                    "------ Commands -----------------------------------------------------",
+                    " - help    - restart    - new    - undo    - s    - w    - p    - f",
+                    "",
+                    "Type help <command> for more info on each command."
                 };
 
                 setValidMove(true); break;
 
             case "undo" : undoRoutine(); break;
 
-            case "restart" : restartGame(); setMoveCount(0); setValidMove(true); break;
+            case "restart" : restartGame(); break;
 
-            case "s" : 
-                logic.cycleStock(game.getStock(), game.getWaste()); 
-                undo.doMove(new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles()));
-                incrementMoveCount();
-                setValidMove(true);
-                break;
+            case "new" : newGame(); break;
+
+            case "s" : cycleStock(); break;
 
         }
 
@@ -120,7 +123,9 @@ public class Game {
                         " - Usage: s",
                         " - Action: cycles the cards in the stock.",
                         " - Example: s"
-                    }; 
+                    };
+                    setValidMove(true);
+                    setSkip(true);
                     break;
 
 
@@ -130,10 +135,13 @@ public class Game {
                       "~~~ w",
                       " - Usage: w",
                       " - Action: select the right-most card in the waste.",
-                      " - Example: w"  
+                      " - Example: w p7 (moves the right-most card in the waste onto pile 7)",
+                      " - Example: w f4 (moves the right-most card in the waste into foundation 4)"  
                     };
+                    setValidMove(true);
+                    setSkip(true);
                     break;
-                    
+
 
                 case "undo" :
                     message = new String[] 
@@ -143,6 +151,8 @@ public class Game {
                         " - Action: undoes the most recent move.",
                         " - Example: undo"
                     };
+                    setValidMove(true);
+                    setSkip(true);
                     break;
                 
 
@@ -151,12 +161,52 @@ public class Game {
                     {
                         "~~~ restart",
                         " - Usage: restart",
-                        " - Action: restarts the game.",
+                        " - Action: restarts the current game.",
                         " - Example: restart"
                     };
+                    setValidMove(true);
+                    setSkip(true);
                     break;
 
                 
+                case "f" :
+                    message = new String[] 
+                    {
+                        "~~~ f",
+                        " - Usage: f<1-4>",
+                        " - Action: selects foundation pile <1-4>",
+                        " - Example: p3 f2 (moves the bottom card from pile 3 into foundation 2)",
+                        " - Example: f4 p7 (moves the top card in foundation 4 into pile 7)"
+                    };
+                    setValidMove(true);
+                    setSkip(true);
+                    break;
+
+                
+                case "p" :
+                    message = new String[] 
+                    {
+                        "~~~ p",
+                        " - Usage: p<1-7>",
+                        " - Action: selects table pile <1-7>",
+                        " - Example: p1 p2 (moves top-most visible card in pile 1 onto the bottm card in pile 2)",
+                        " - Example: p5 7 p3 (moves the cards from 7 and below in pile 5 onto pile 3)"
+                    };
+                    setValidMove(true);
+                    setSkip(true);
+                    break;
+
+                case "new" :
+                    message = new String[] 
+                    {
+                        "~~~ new",
+                        " - Usage: new",
+                        " - Action: start a new game.",
+                        " - Example: new"
+                    };
+                    setValidMove(true);
+                    setSkip(true);
+                    break;
 
             }
 
@@ -331,9 +381,25 @@ public class Game {
             "Game Restarted!"
         };
 
+        game.setState(undo.getBaseState());
+        undo.clearMoveStack();
+        setMoveCount(0);
+        setValidMove(true);
+
+    }
+
+    private void newGame() {
+
+        message = new String[] 
+        {
+            "New game!"
+        };
+
         game = new GameBoard();
         undo.setBaseState(new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles()));
         undo.clearMoveStack();
+        setMoveCount(0);
+        setValidMove(true);
 
     }
 
@@ -401,6 +467,42 @@ public class Game {
     public void clearMessage() {
 
         message = new String[] {""};
+
+    }
+
+    public void setSkip(boolean skip) {
+
+        this.skip = skip;
+
+    }
+
+    public boolean getSkip() {
+
+        return skip;
+
+    }
+
+    public void setWinMessage() {
+
+        message = new String[] 
+        {
+            "!!!!!!!!!!!!!!!!!!!!!!!!!!",
+            "!!                      !!",
+            "!!   ***GAME  OVER***   !!",
+            "!!                      !!",
+            "!!     **YOU  WIN**     !!",
+            "!!                      !!",
+            "!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        };
+
+    }
+
+    private void cycleStock() {
+
+        logic.cycleStock(game.getStock(), game.getWaste()); 
+        undo.doMove(new State(game.getWaste(), game.getStock(), game.getFoundations(), game.getPiles()));
+        incrementMoveCount();
+        setValidMove(true);
 
     }
 

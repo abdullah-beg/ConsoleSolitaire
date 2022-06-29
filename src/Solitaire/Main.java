@@ -34,7 +34,13 @@ public class Main {
                     
                     }
 
-                    if (game.getValidMove()) {
+                    // if (game.getValidMove()) {
+                    //     game.getBoard().showFrontCard();
+                    //     game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
+                    //     game.incrementMoveCount();
+
+                    // }
+                    if (!game.getSkip()) {
                         game.getBoard().showFrontCard();
                         game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
                         game.incrementMoveCount();
@@ -47,13 +53,14 @@ public class Main {
 
             draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove(), game.getMoveCount(), game.getGameMessage());
             game.setValidMove(false);
+            game.setSkip(false);
             game.clearMessage();
 
         }
 
-        System.out.println("!!!~~~~~~~~~~GAME OVER~~~~~~~~~~!!!");
-        System.out.println("!!!~~~~~~~~~~~YOU WON~~~~~~~~~~~!!!");
-
+        game.setWinMessage();
+        draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove(), game.getMoveCount(), game.getGameMessage());
+            
     }
 
 }
