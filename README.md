@@ -1,5 +1,5 @@
 # Console Solitaire
-The classic solitaire game in the format of a console/terminal.
+The classic solitaire game in console format!
 
 
 ## Notepad Sketch of Planned Layout
