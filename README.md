@@ -10,5 +10,7 @@ The classic solitaire game in console format!
 ![SolitaireScreenshot](https://user-images.githubusercontent.com/98782131/176542601-904c9f4b-a31e-43c8-b816-1b66bfcf5b5f.png)
 
 
-## Gameplay
+## Sample Gameplay
 https://user-images.githubusercontent.com/98782131/176677090-54768ad2-0fa5-4bc8-8a88-892bf41645b3.mp4
+
+Sound effects obtained from https://www.zapsplat.com/
