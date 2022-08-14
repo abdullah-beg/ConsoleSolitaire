@@ -80,31 +80,17 @@ public class Game {
         // Only valid command words can make it to this point.
         
         switch (word1) {
-
             case "help" : 
-
-                message = new String[] 
-                {
-                    "The goal of the game is to sort all the cards into their suits",
-                    "To move a card type: <location1> <location2> For Example: 'p7 p2' or 'w f3' or 'f1 p2'",
-                    "You can also move specific cards: <location1> <card number> <location2>",
-                    "For detailed insutrctions please visit: 'https://bicyclecards.com/how-to-play/solitaire/'",
-                    "",
-                    "------ Commands -----------------------------------------------------",
-                    " - help    - restart    - new    - undo    - s    - w    - p    - f",
-                    "",
-                    "Type help <command> for more info on each command."
-                };
-
+                setHelpMessage();
                 setValidMove(true); break;
 
-            case "undo" : undoRoutine(); break;
+            case "undo" : undoRoutine(); CardSound.playRandomCardMoveSoundEffect(); break;
 
-            case "restart" : restartGame(); break;
+            case "restart" : restartGame(); CardSound.playRandomCardShuffleSoundEffect(); break;
 
-            case "new" : newGame(); break;
+            case "new" : newGame(); CardSound.playRandomCardShuffleSoundEffect(); break;
 
-            case "s" : cycleStock(); break;
+            case "s" : cycleStock(); CardSound.playRandomCardMoveSoundEffect(); break;
 
         }
 
@@ -493,6 +479,22 @@ public class Game {
             "!!     **YOU  WIN**     !!",
             "!!                      !!",
             "!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        };
+
+    }
+
+    public void setHelpMessage() {
+
+        message = new String[] {
+            "The goal of the game is to sort all the cards into their suits",
+            "To move a card type: <location1> <location2> For Example: 'p7 p2' or 'w f3' or 'f1 p2'",
+            "You can also move specific cards: <location1> <card number> <location2>",
+            "For detailed insutrctions please visit: 'https://bicyclecards.com/how-to-play/solitaire/'",
+            "",
+            "------ Commands -----------------------------------------------------",
+            " - help    - restart    - new    - undo    - s    - w    - p    - f",
+            "",
+            "Type help <command> for more info on each command."
         };
 
     }

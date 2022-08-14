@@ -1,5 +1,7 @@
 package Solitaire;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -7,17 +9,21 @@ public class Main {
         Game game = new Game();
         Draw draw = new Draw();
 
+        userInputPlayWithSound();
+        CardSound.playRandomCardShuffleSoundEffect();
+
         game.getBoard().showFrontCard();
         game.getUndo().setBaseState(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
+        game.setHelpMessage();
         draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove(), game.getMoveCount(), game.getGameMessage());
         game.setValidMove(false);
+
 
         while (!game.gameFinished()) {
 
             Command command = game.getParser().getUserCommand();
 
             if (command.validateCommand()) {
-
                 String word1 = command.getFirstWord();
                 String word2 = command.getSecondWord();
                 String word3 = command.getThirdWord();
@@ -34,17 +40,15 @@ public class Main {
                     
                     }
 
-                    // if (game.getValidMove()) {
-                    //     game.getBoard().showFrontCard();
-                    //     game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
-                    //     game.incrementMoveCount();
-
-                    // }
                     if (!game.getSkip()) {
-                        game.getBoard().showFrontCard();
-                        game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
-                        game.incrementMoveCount();
+                        if (game.getValidMove()) {
+                            game.getBoard().showFrontCard();
+                            game.getUndo().doMove(new State(game.getBoard().getWaste(), game.getBoard().getStock(), game.getBoard().getFoundations(), game.getBoard().getPiles()));
+                            game.incrementMoveCount();
+                            CardSound.playRandomCardMoveSoundEffect();
 
+                        }
+                        
                     }
 
                 }
@@ -61,6 +65,19 @@ public class Main {
         game.setWinMessage();
         draw.printBoard(game.getBoard().getStock().getCardCount(), game.getBoard().getWaste(), game.getBoard().getFoundations(), game.getBoard().getPiles(), game.getValidMove(), game.getMoveCount(), game.getGameMessage());
             
+    }
+
+    public static void userInputPlayWithSound() {
+
+        Scanner userInput = new Scanner(System.in);
+        System.out.print("Play with sound? (y/n)\n   Enter Option: ");
+        String option = userInput.nextLine();
+
+        if (option.toLowerCase().startsWith("y")) {
+            CardSound.setPlayWithSound(true);
+
+        }
+
     }
 
 }
