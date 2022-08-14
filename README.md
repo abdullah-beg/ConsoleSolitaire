@@ -1,6 +1,7 @@
 # Console Solitaire
 The classic solitaire game in console format!
 
+Full Video Gameplay: https://www.youtube.com/watch?v=r0WCqnQt6vk
 
 ## Notepad Sketch of Planned Layout
 ![SolitaireNotepadSketch](https://user-images.githubusercontent.com/98782131/176669926-2fadb5db-5a83-412b-9cf2-a831b81a49d7.png)
