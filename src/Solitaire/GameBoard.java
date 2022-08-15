@@ -11,6 +11,9 @@ public class GameBoard {
     private Waste wastePile;
     private Foundation[] foundationPiles;
 
+    /**
+     * Constructor for GameBoard. Creates new piles for each part of the table.
+     */
     public GameBoard() {
 
         cards = new ArrayList<>();
@@ -37,6 +40,9 @@ public class GameBoard {
 
     }
 
+    /**
+     * Generates all the possible cards.
+     */
     private void generateCards() {
 
         String suits = "#$%@";
@@ -57,6 +63,9 @@ public class GameBoard {
 
     }
 
+    /**
+     * Sets the card in the Table Piles.
+     */
     private void prepareCardLayout() {
 
         for (int pile = 0; pile < 7; pile++) {
@@ -70,6 +79,9 @@ public class GameBoard {
 
     }
 
+    /**
+     * Shows the most bottom card on each pile.
+     */
     public void showFrontCard() {
 
         for (int pile = 0; pile < 7; pile++) {
@@ -83,86 +95,112 @@ public class GameBoard {
 
     }
 
+    /**
+     * Getter for stock field.
+     * @return Returns the stockPile field.
+     */
     public Stock getStock() {
 
         return stockPile;
 
     }
 
+    /**
+     * Setter for the stockPile field.
+     * @param stockPile The new stockPile field object.
+     */
     public void setStock(Stock stockPile) {
 
         this.stockPile = stockPile;
 
     }
 
+    /**
+     * Getter for the wastePile field.
+     * @return The wastePile field.
+     */
     public Waste getWaste() {
 
         return wastePile;
 
     }
 
+    /**
+     * Setter for the wastePile field.
+     * @param wastePile The new wastePile field object.
+     */
     public void setWaste(Waste wastePile) {
 
         this.wastePile = wastePile;
 
     }
 
+    /**
+     * Get the table pile at the index.
+     * @param index index of the pile. 0 - 6.
+     * @return The pile at the given index.
+     */
     public Pile getPile(int index) {
 
         return tablePiles[index];
 
     }
 
+    /**
+     * Get all the table piles as an array.
+     * @return Array of all Table Piles.
+     */
     public Pile[] getPiles() {
 
         return tablePiles;
 
     }
 
+    /**
+     * Setter for tablePiles.
+     * @param tablePiles the new tablePile object.
+     */
     public void setPiles(Pile[] tablePiles) {
 
         this.tablePiles = tablePiles;
 
     }
 
+    /**
+     * Get the foundation pile at the given index.
+     * @param index The index of the pile. 0 - 3.
+     * @return The foundation pile at the given index.
+     */
     public Foundation getFoundation(int index) {
 
         return foundationPiles[index];
 
     }
 
+    /**
+     * Get all the foundations piles.
+     * @return Array of the Foundation piles.
+     */
     public Foundation[] getFoundations() {
 
         return foundationPiles;
 
     }
 
+    /**
+     * Setter for the foundationPiles field.
+     * @param foundationPiles The new foundationPiles object.
+     */
     public void setFoundations(Foundation[] foundationPiles) {
 
         this.foundationPiles = foundationPiles;
 
     }
 
-    public Pile locatePile(String input) {
-
-        String pile = input.substring(0,1);
-
-        if (pile.equals("w")) {
-            return getWaste();
-
-        } else if (pile.equals("f")) {
-            int index = Integer.parseInt(input.substring(1,2));
-            return getFoundation(index - 1);
-        
-        }
-
-        // If it has reached here, it means that its looking for a table pile
-        
-        int index = Integer.parseInt(input.substring(1,2));
-        return getPile(index - 1);
-
-    }
-
+    /**
+     * Set the current state to the new state.
+     * @param state The new State to be set to.
+     */
     public void setState(State state) {
 
         setWaste(state.convertWaste());

@@ -1,14 +1,18 @@
 package Solitaire;
 
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.util.Random;
 
 public class CardSound {
 
-    private static final String cardMoveSoundEffectFilePath = "\\card_move_sound_effects\\";
-    private static final String cardShuffleSoundEffectFilePath = "\\card_shuffle_sound_effects\\";
+    // File path for sound effects
+
+    private static final String cardMoveSoundEffectFilePath = "\\Solitaire\\\\sounds\\card_move_sound_effects\\";
+    private static final String cardShuffleSoundEffectFilePath = "\\Solitaire\\sounds\\card_shuffle_sound_effects\\";
+
+
+    // Sound effect file names
 
     private static final String[] cardMoveSoundEffects = new String[] {
             "zapsplat_card_move_sound_effect_01.wav",
@@ -27,12 +31,17 @@ public class CardSound {
 
     };
 
-    private static final Random rand = new Random();
+    // Sound effects were obtained from "https://zapsplat.com/"
 
+    private static final Random rand = new Random();
     private static boolean playWithSound = false;
 
     private CardSound() {}
 
+    /**
+     * Plays a random card shuffle sound effect.
+     * Then plays a sound of setting up the cards.
+     */
     public static void playRandomCardShuffleSoundEffect() {
 
         if (playWithSound) {
@@ -44,10 +53,7 @@ public class CardSound {
                 cardShuffle.open(AudioLoader.loadAudioFile(cardShuffleSoundEffectFilePath + cardShuffleSoundEffects[index]));
                 duration = cardShuffle.getMicrosecondLength();
 
-            } catch (Exception e) {
-
-
-            }
+            } catch (Exception e) {}
 
             playCardShuffleSoundEffect(index);
             long startTime = System.currentTimeMillis();
@@ -64,6 +70,9 @@ public class CardSound {
 
     }
 
+    /**
+     * Plays a random card move sound effect.
+     */
     public static void playRandomCardMoveSoundEffect() {
 
         if (playWithSound) {
@@ -74,18 +83,30 @@ public class CardSound {
 
     }
 
+    /**
+     * Load and plays the audio file located at index in the cardMoveSoundEffect array
+     * @param index index of the sound effect in array
+     */
     public static void playCardMoveSoundEffect(int index) {
 
         AudioLoader.playAudioFile(AudioLoader.loadAudioFile(cardMoveSoundEffectFilePath + cardMoveSoundEffects[index]));
 
     }
 
+    /**
+     * Load and plays the audio file located at index in the cardShuffleSoundEffect array
+     * @param index index of the sound effect in array
+     */
     public static void playCardShuffleSoundEffect(int index) {
 
         AudioLoader.playAudioFile(AudioLoader.loadAudioFile(cardShuffleSoundEffectFilePath + cardShuffleSoundEffects[index]));
 
     }
 
+    /**
+     * Set whether sound effects are to be played or not.
+     * @param value (true/false) if sound effects are played.
+     */
     public static void setPlayWithSound(boolean value) {
 
         playWithSound = value;

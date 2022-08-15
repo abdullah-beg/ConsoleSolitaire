@@ -8,12 +8,17 @@ public class AudioLoader {
 
     private AudioLoader() {}
 
+    /**
+     * Load audio file in .WAV format.
+     * @param fileName filename of the file in the resource folder
+     * @return target file as AudioInputSream object
+     */
     public static AudioInputStream loadAudioFile(String fileName) {
 
 
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                            AudioLoader.class.getClassLoader().getResourceAsStream("Solitaire\\sounds\\" + fileName
+                            AudioLoader.class.getClassLoader().getResourceAsStream(fileName
                     ));
             return audioInputStream;
 
@@ -26,6 +31,10 @@ public class AudioLoader {
 
     }
 
+    /**
+     * Play the AudioInputStream object sound
+     * @param sound the AudioInputStream object to be played
+     */
     public static void playAudioFile(AudioInputStream sound) {
 
         try {

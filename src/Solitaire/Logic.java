@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 public class Logic {
     
-    public Logic() {
+    public Logic() {}
 
-    }
-
+    /**
+     * Logic for cycling the stock.
+     * @param stock The Stock pile.
+     * @param waste The Waste pile.
+     */
     public void cycleStock(Stock stock, Waste waste) {
 
         if (!stock.isEmpty()) {
-
             waste.takeCardFromStock(stock.getCardAtIndex(0));
             stock.removeCardAtIndex(0);
             waste.setCardOrder();
 
         } else {
-
             for (Card card : waste.getCardsInPile()) {
                 stock.returnCardToStock(card);
 
@@ -30,9 +31,13 @@ public class Logic {
 
     }
 
-    /*
-        If we are moving a card from Waste to Table
-    */  
+
+    /**
+     * Logical computation when moving a card from Waste to Table
+     * @param waste The Waste pile.
+     * @param pile The Table Pile.
+     * @return boolean dictating whether the move is valid.
+     */
     public boolean moveLogic(Waste waste, Pile pile) {
 
         Card card1 = waste.getFrontCard();
@@ -60,9 +65,12 @@ public class Logic {
 
     }
 
-    /*
-        If we are moving a card from Waste to Foundation
-    */
+    /**
+     * Logical computation when moving a card from Waste to Foundation.
+     * @param waste The Waste pile.
+     * @param foundation The Foundation pile.
+     * @return boolean dictating whether the move is valid.
+     */
     public boolean moveLogic(Waste waste, Foundation foundation) {
 
         Card card1 = waste.getFrontCard();
@@ -90,9 +98,12 @@ public class Logic {
 
     }
 
-    /*
-        If we are moving a Card from Foundation to Table
-    */
+    /**
+     * Logical computation when moving a card from a foundation to a pile.
+     * @param foundation The Foundation pile.
+     * @param pile The Table pile.
+     * @return boolean dictating whether the move is valid.
+     */
     public boolean moveLogic(Foundation foundation, Pile pile) {
 
         Card card1 = foundation.getBottomCard();
@@ -107,7 +118,6 @@ public class Logic {
 
             } else {
                 if (card1.getCardNumber() + 1 == card2.getCardNumber() && sameColour(card1, card2) == false) {
-
                     if (card1.getCardNumber() == 1) {
                         foundation.setSuit("");
 
@@ -125,9 +135,12 @@ public class Logic {
 
     }
 
-    /*
-        If we are moving a Card from Table Pile to Foundation
-    */
+    /**
+     * Logical computation when moving a card from a Table pile to Foundation.
+     * @param pile The Table pile.
+     * @param foundation The Foundation pile.
+     * @return boolean dictating whether the move is valid.
+     */
     public boolean moveLogic(Pile pile, Foundation foundation) {
         
         Card card1 = pile.getBottomCard();
@@ -157,10 +170,12 @@ public class Logic {
 
     }
 
-
-    /*
-        If we are moving Cards from a pile to pile
-    */
+    /**
+     * Logical computation when moving a card from a pile to a pile.
+     * @param pile1 The table pile.
+     * @param pile2 The other table pile.
+     * @return boolean dictating whether the move is valid.
+     */
     public boolean moveLogic(Pile pile1, Pile pile2) {
 
         ArrayList<Card> cards1 = pile1.getVisibleCards();
@@ -175,7 +190,7 @@ public class Logic {
 
             } else {
                 // Both pile 1 and pile 2 are not empty 
-                // We compare its top and bottom 
+                // We compare its top and bottom
 
                 Card top = cards1.get(0);
                 Card bottom = cards2.get(cards2.size() - 1);
@@ -193,14 +208,17 @@ public class Logic {
 
     }
 
-    /*
-        If we are moving a Card from Foundation to Foundation
-    */
+    /**
+     * Logical computation when moving a card from foundation to foundation.
+     * @param foundation1 The Foundation pile.
+     * @param foundation2 The other Foundation pile.
+     * @return boolean dictating whether the move is valid.
+     */
     public boolean moveLogic(Foundation foundation1, Foundation foundation2) {
 
         Card card1 = foundation1.getBottomCard();
 
-        // This doesnt need a second card, since only possible is moving A across foundations
+        // This doesn't need a second card, since only possible is moving A across foundations
 
         if (!foundation1.isEmpty() && foundation2.isEmpty()) {
             if (card1.getCardNumber() == 1) {
@@ -214,6 +232,13 @@ public class Logic {
 
     }
 
+    /**
+     * Logical computation when moving a section of cards from one pile to another.
+     * @param pile1 The Table pile.
+     * @param cardNumber The selected card number to move.
+     * @param pile2 The other Table pile.
+     * @return boolean dictating whether the move is valid.
+     */
     public ArrayList<Card> moveLogic(Pile pile1, int cardNumber, Pile pile2) {
 
         ArrayList<Card> visibleCards = pile1.getVisibleCards();
@@ -250,7 +275,7 @@ public class Logic {
                             returnCards.add(pile1.getCardAtIndex(i));
                         }
 
-                        if (card1.getCardNumber() + 1 == card2.getCardNumber() && sameColour(card1, card2) == false) {
+                        if (card1.getCardNumber() + 1 == card2.getCardNumber() && !sameColour(card1, card2)) {
                             return returnCards;                            
 
                         }
@@ -267,14 +292,15 @@ public class Logic {
 
     }
 
+    /**
+     * Compare if two cards are the same colour.
+     * @param card1 Card 1
+     * @param card2 Card 2
+     * @return boolean dictating if the two cards are the same colour.
+     */
     public boolean sameColour(Card card1, Card card2) {
 
-        if (card1.getCardColour().equals(card2.getCardColour())) {
-            return true;
-
-        }
-
-        return false;
+        return card1.getCardColour().equals(card2.getCardColour());
 
     }
 

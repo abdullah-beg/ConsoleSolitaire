@@ -67,13 +67,16 @@ public class Main {
             
     }
 
+    /**
+     * Allow the user to pick whether they are to play with sound or not.
+     */
     public static void userInputPlayWithSound() {
 
         Scanner userInput = new Scanner(System.in);
         System.out.print("Play with sound? (y/n)\n   Enter Option: ");
         String option = userInput.nextLine();
 
-        if (option.toLowerCase().startsWith("y")) {
+        if (option.trim().toLowerCase().startsWith("y")) {
             CardSound.setPlayWithSound(true);
 
         }

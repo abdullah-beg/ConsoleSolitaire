@@ -17,6 +17,9 @@ public class Game {
 
     private String[] message;
 
+    /**
+     * Constructor for Game. Initialise fields.
+     */
     public Game() {
 
         parser = new Parser();
@@ -31,36 +34,60 @@ public class Game {
 
     }
 
+    /**
+     * Getter for State.
+     * @return State of the board.
+     */
     public State getState() {
 
         return state;
 
     }
 
+    /**
+     * Getter for board.
+     * @return Returns the gameboard field.
+     */
     public GameBoard getBoard() {
 
         return game;
 
     }
 
+    /**
+     * Getter for parser.
+     * @return Returns the parser field.
+     */
     public Parser getParser() {
 
         return parser;
 
     }
 
+    /**
+     * Getter for logic.
+     * @return Returns the logic field.
+     */
     public Logic getLogic() {
 
         return logic;
 
     }
 
+    /**
+     * Getter for undo
+     * @return Returns the undo field.
+     */
     public Undo getUndo() {
 
         return undo;
 
     }
 
+    /**
+     * Check if the game is in its finished state.
+     * @return (true/false) if the game is in finished state.
+     */
     public boolean gameFinished() {
 
         for (Foundation foundation : game.getFoundations()) {
@@ -75,6 +102,10 @@ public class Game {
 
     }
 
+    /**
+     * Process single word commands.
+     * @param word1 The command to be processed.
+     */
     public void processCommand(String word1) {
 
         // Only valid command words can make it to this point.
@@ -82,20 +113,38 @@ public class Game {
         switch (word1) {
             case "help" : 
                 setHelpMessage();
-                setValidMove(true); break;
+                setValidMove(true);
+                break;
 
-            case "undo" : undoRoutine(); CardSound.playRandomCardMoveSoundEffect(); break;
+            case "undo" :
+                undoRoutine();
+                CardSound.playRandomCardMoveSoundEffect();
+                break;
 
-            case "restart" : restartGame(); CardSound.playRandomCardShuffleSoundEffect(); break;
+            case "restart" :
+                restartGame();
+                CardSound.playRandomCardShuffleSoundEffect();
+                break;
 
-            case "new" : newGame(); CardSound.playRandomCardShuffleSoundEffect(); break;
+            case "new" :
+                newGame();
+                CardSound.playRandomCardShuffleSoundEffect();
+                break;
 
-            case "s" : cycleStock(); CardSound.playRandomCardMoveSoundEffect(); break;
+            case "s" :
+                cycleStock();
+                CardSound.playRandomCardMoveSoundEffect();
+                break;
 
         }
 
     }
 
+    /**
+     * Process two word commands.
+     * @param word1 The first word in the user input.
+     * @param word2 The second word in the user input.
+     */
     public void processCommand(String word1, String word2) {
 
         if (word1.equals("help")) {
@@ -202,11 +251,10 @@ public class Game {
             Waste waste = game.getWaste();
 
             if (word2.substring(0,1).equals("p")) {
-                
+
                 Pile pile = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
 
                 if (logic.moveLogic(waste, pile)) {
-                    
                     pile.addCardToPile(waste.getFrontCard());
                     waste.removeCardFromBottom();
                     waste.setCardOrder();
@@ -217,11 +265,10 @@ public class Game {
 
 
             } else {
-                
+
                 Foundation foundation = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
 
                 if (logic.moveLogic(waste, foundation)) {
-
                     foundation.addCardToPile(waste.getFrontCard());
                     waste.removeCardFromBottom();
                     waste.setCardOrder();
@@ -237,11 +284,9 @@ public class Game {
             Foundation foundation = game.getFoundation(Integer.parseInt((word1).substring(1,2)) - 1);
 
             if (word2.substring(0,1).equals("p")) {
-
                 Pile pile = game.getPile(Integer.parseInt((word2).substring(1,2)) - 1);
 
                 if (logic.moveLogic(foundation, pile)) {
-
                     pile.addCardToPile(foundation.getBottomCard());
                     foundation.removeCardFromBottom();
 
@@ -255,7 +300,6 @@ public class Game {
                 Foundation foundation2 = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
 
                 if (logic.moveLogic(foundation, foundation2)) {
-
                     foundation2.addCardToPile(foundation.getBottomCard());
                     foundation.removeCardFromBottom();
 
@@ -289,7 +333,6 @@ public class Game {
                 Foundation foundation = game.getFoundation(Integer.parseInt((word2).substring(1,2)) - 1);
 
                 if (logic.moveLogic(pile, foundation)) {
-                
                     foundation.addCardToPile(pile.getBottomCard());
                     pile.removeCardFromBottom();
 
@@ -303,6 +346,12 @@ public class Game {
 
     }
 
+    /**
+     * Process triple word commands.
+     * @param word1 The first word in the user input.
+     * @param word2 The second word in the user input.
+     * @param word3 The third word in the user input.
+     */
     public void processCommand(String word1, String word2, String word3) {
 
         Pile pile1 = game.getPile(Integer.parseInt((word1).substring(1,2)) - 1);
@@ -328,38 +377,51 @@ public class Game {
 
     }
 
+    /**
+     * Convert the user inputted character values to numbers.
+     * @param input (1 - 9) (K, Q, J, A) to numbers.
+     * @return String which is the card value as a number.
+     */
     private String convertInput(String input) {
 
-        if (input.equals("a")) {
-            return "1";
+        return switch (input) {
+            case "a" -> "1";
 
-        } else if (input.equals("j")) {
-            return "11";
+            case "j" -> "11";
 
-        } else if (input.equals("q")) {
-            return "12";
+            case "q" -> "12";
 
-        } else if (input.equals("k")) {
-            return "13";
+            case "k" -> "13";
 
-        }
+            default -> input;
 
-        return input;
+        };
 
     }
 
+    /**
+     * Setter for the validMove field.
+     * @param input (true/false) valid move.
+     */
     public void setValidMove(boolean input) {
 
         validMove = input;
 
     }
 
+    /**
+     * Getter for the validMove field.
+     * @return Returns the validMove field.
+     */
     public boolean getValidMove() {
 
         return validMove;
 
     }
 
+    /**
+     * Restarts the game and presents a message for the user.
+     */
     private void restartGame() {
 
         message = new String[] 
@@ -374,6 +436,9 @@ public class Game {
 
     }
 
+    /**
+     * Creates a new game and presents a message for the user.
+     */
     private void newGame() {
 
         message = new String[] 
@@ -389,48 +454,71 @@ public class Game {
 
     }
 
+    /**
+     * Increments the move count.
+     */
     public void incrementMoveCount() {
 
         moveCount++;
 
     }
 
+    /**
+     * Decrements the move count.
+     */
     public void decrementMoveCount() {
 
         moveCount--;
 
     }
 
+    /**
+     * Getter for the move count.
+     * @return Number of moves.
+     */
     public int getMoveCount() {
 
         return moveCount;
 
     }
 
+    /**
+     * Set the move count.
+     * @param moveCount Value for the move count to be set to.
+     */
     public void setMoveCount(int moveCount) {
 
         this.moveCount = moveCount;
 
     }
 
+    /**
+     * Undo the last move if there was any.
+     */
     public void undoRoutine() {
 
         State old;
 
         switch (undo.getMoveStackSize()) {
 
-            case 0 : 
-                
+            case 0 :
                 message = new String[] 
                 {
                     "There are no moves to undo!"
                 };
 
-                setValidMove(false); return;
+                setValidMove(false);
+                return;
 
-            case 1 : undo.undoMove(); old = undo.getBaseState(); break;
+            case 1 :
+                undo.undoMove();
+                old = undo.getBaseState();
+                break;
 
-            default : undo.undoMove(); old = undo.getMostRecentState(); break;
+            default :
+                undo.undoMove();
+                old = undo.getMostRecentState();
+                break;
 
         }
 
@@ -444,30 +532,48 @@ public class Game {
         
     }
 
+    /**
+     * Getter for the message field.
+     * @return Returns the message to be printed onto the board.
+     */
     public String[] getGameMessage() {
 
         return message;
 
     }
 
+    /**
+     * Clears the message on the board.
+     */
     public void clearMessage() {
 
         message = new String[] {""};
 
     }
 
+    /**
+     * Setter for the skip field.
+     * @param skip Value for the skip field to be set to.
+     */
     public void setSkip(boolean skip) {
 
         this.skip = skip;
 
     }
 
+    /**
+     * Getter for the skip field.
+     * @return (true/false) if the counter should be skipped.
+     */
     public boolean getSkip() {
 
         return skip;
 
     }
 
+    /**
+     * Sets the win message.
+     */
     public void setWinMessage() {
 
         message = new String[] 

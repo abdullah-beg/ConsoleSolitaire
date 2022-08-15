@@ -7,13 +7,20 @@ public class Waste extends Pile {
     private Card backCard;
     private Card midCard;
     private Card frontCard;
-    
+
+    /**
+     * Constructor for Waste.
+     */
     public Waste() {
 
         cards = new ArrayList<>();
 
     }
 
+    /**
+     * Constructor for Waste with given cards.
+     * @param cards Cards to be added to the waste.
+     */
     public Waste(ArrayList<Card> cards) {
 
         this.cards = cards;
@@ -21,6 +28,9 @@ public class Waste extends Pile {
 
     }
 
+    /**
+     * Set the order of the cards in the waste.
+     */
     public void setCardOrder() {
 
         frontCard = null;
@@ -50,24 +60,40 @@ public class Waste extends Pile {
 
     }
 
+    /**
+     * Get the card at the front of the waste.
+     * @return The card at the front of the waste.
+     */
     public Card getFrontCard() {
 
         return frontCard;
 
     }
 
+    /**
+     * Get the card in the middle of the waste.
+     * @return The card in the middle of the waste.
+     */
     public Card getMidCard() {
 
         return midCard;
 
     }
 
+    /**
+     * Get the card at the back of the waste.
+     * @return The card in the back of the waste.
+     */
     public Card getBackCard() {
 
         return backCard;
 
     }
 
+    /**
+     * Remove a card from the stock, so it now becomes visible.
+     * @param card The card to be removed.
+     */
     public void takeCardFromStock(Card card) {
 
         card.setVisible(true);

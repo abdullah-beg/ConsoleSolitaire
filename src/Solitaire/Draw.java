@@ -13,12 +13,18 @@ public class Draw {
 
     private String[][] board;
 
+    /**
+     * Constructor for draw which initialises the board.
+     */
     public Draw() {
 
         board = new String[width][height];
 
     }
 
+    /**
+     * Clears the board by setting every element to " ".
+     */
     private void clearBoard() {
 
         for (int x = 0; x < width; x++) {
@@ -31,6 +37,16 @@ public class Draw {
 
     }
 
+    /**
+     * Prints the board by taking in each section of the board
+     * @param cardCount Number of cards in the stock.
+     * @param waste The Waste pile in the board.
+     * @param foundations The Foundation piles in the board.
+     * @param piles The Table Piles in the board.
+     * @param move The validity of the move.
+     * @param moveCount The number of moves.
+     * @param message Message to be printed at the side.
+     */
     public void printBoard(int cardCount, Waste waste, Foundation[] foundations, Pile[] piles, boolean move, int moveCount, String[] message) {
 
         clearBoard();
@@ -56,13 +72,21 @@ public class Draw {
 
         }
 
+        String finalOutput = "";
+
         for (String s : output) {
-            System.out.println(s);
+            finalOutput += "\n" + s;
 
         }
 
+        System.out.println(finalOutput);
+
     }
 
+    /**
+     * Draw the stock into the array.
+     * @param cardCount Number of cards in the stock.
+     */
     private void printStock(int cardCount) {
 
         if (cardCount > 0) {
@@ -95,8 +119,12 @@ public class Draw {
 
         }
 
-    }    
+    }
 
+    /**
+     * Draw the Waste into the array.
+     * @param waste Waste pile.
+     */
     private void printWaste(Waste waste) {
 
         Card backCard = waste.getBackCard();
@@ -139,6 +167,10 @@ public class Draw {
 
     }
 
+    /**
+     * Draw the foundations into the array.
+     * @param foundations Array of Foundation piles.
+     */
     private void printFoundations(Foundation[] foundations) {
 
         int pointer = 35;
@@ -164,6 +196,10 @@ public class Draw {
 
     }
 
+    /**
+     * Draw the Table Piles into the array.
+     * @param piles Array of Table Piles.
+     */
     private void printTablePiles(Pile[] piles) {
 
         int pointerX = 5;
@@ -217,6 +253,10 @@ public class Draw {
 
     }
 
+    /**
+     * Draw each of the pile indicators.
+     * @param waste The Waste pile.
+     */
     private void printGameLabels(Waste waste) {
 
         // Stock
@@ -248,6 +288,11 @@ public class Draw {
 
     }
 
+    /**
+     * Draw a blank card space.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     */
     private void drawEmptySpace(int x, int y) {
 
         // Card top
@@ -268,6 +313,11 @@ public class Draw {
 
     }
 
+    /**
+     * Draw a full card.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     */
     private void drawCardTemplate(int x, int y) {
 
         // Card top
@@ -304,6 +354,11 @@ public class Draw {
 
     }
 
+    /**
+     * Draw the top of a card.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     */
     private void drawCutCard(int x, int y) {
 
         // The top is not defined for this shape
@@ -333,6 +388,12 @@ public class Draw {
 
     }
 
+    /**
+     * Draw the pile indicator.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param input The String to be drawn inside.
+     */
     private void drawIndicator(int x, int y, String input) {
 
         board[x][y] = "[";
@@ -341,6 +402,13 @@ public class Draw {
 
     }
 
+    /**
+     * Draw the pile indicator with an index.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param input The String to be drawn inside.
+     * @param index The index to be drawn.
+     */
     private void drawIndicator(int x, int y, String input, int index) {
 
         board[x][y] = "[";
@@ -350,6 +418,11 @@ public class Draw {
 
     }
 
+    /**
+     * Draws a hidden card (face down).
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     */
     private void drawHiddenCard(int x, int y) {
 
         board[x][y] = " ";
@@ -370,6 +443,14 @@ public class Draw {
 
     }
 
+    /**
+     * Draw a card inside a stack.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param number Number of the card.
+     * @param suit Suit of the card.
+     * @param colour Colour of the card.
+     */
     private void drawStackedCard(int x, int y, String number, String suit, String colour) {
 
         board[x][y + 1] = "|";
@@ -393,44 +474,14 @@ public class Draw {
 
     }
 
-    private void drawCard(int x, int y, String number, String suit) {
-
-        // Card top
-        board[x][y] = " ";
-        board[x + 1][y] = "_";
-        board[x + 2][y] = "_";
-        board[x + 3][y] = "_";
-        board[x + 4][y] = "_";
-        board[x + 5][y] = "_";
-        board[x + 6][y] = " ";
-        
-        // Card sides
-        for (int m = 1; m < 5; m++) {
-            for (int n = 0; n < 7; n++) {
-                if (n == 0 || n == 6) {
-                    board[x + n][y + m] = "|";
-
-                } else {
-                    board[x + n][y + m] = " ";
-
-                }
-                
-            }
-
-        }
-
-        // Card bottom
-        board[x + 1][y + 4] = "_";
-        board[x + 2][y + 4] = "_";
-        board[x + 3][y + 4] = "_";
-        board[x + 4][y + 4] = "_";
-        board[x + 5][y + 4] = "_";
-
-
-       drawCard(x, y, number, suit);
-
-    }
-
+    /**
+     * Draws the card's value and suit.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param number The number of the card.
+     * @param suit The suit of the card.
+     * @param colour The colour of the card.
+     */
     private void drawCardValues(int x, int y, String number, String suit, String colour) {
 
         // Card number and Suit
@@ -447,6 +498,14 @@ public class Draw {
 
     }
 
+    /**
+     * Draws a card which is inside the waste pile.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param number Value of the card.
+     * @param suit Suit of the card.
+     * @param colour Colour of the card.
+     */
     private void drawWasteValues(int x, int y, String number, String suit, String colour) {
 
         if (number.equals("10")) {
@@ -462,6 +521,12 @@ public class Draw {
 
     }
 
+    /**
+     * Gets the colour of the card and changes it if RED.
+     * @param colour The colour of the card.
+     * @param input The input to be drawn.
+     * @return Returns the String with a colour if conditions are met.
+     */
     private String getCardColour(String colour, String input) {
 
         if (colour.equals("red")) {
@@ -473,6 +538,10 @@ public class Draw {
 
     }
 
+    /**
+     * Draw the move status on the board.
+     * @param valid (true/false) if the move was valid or not.
+     */
     private void printValidMove(boolean valid) {
 
         // // line 40
@@ -494,6 +563,10 @@ public class Draw {
 
     }
 
+    /**
+     * Draws the number of moves into the array.
+     * @param moveCount Number of moves performed.
+     */
     private void printMoveCount(int moveCount) {
 
         String moveCountString = "# OF MOVES : " + moveCount;
@@ -505,6 +578,10 @@ public class Draw {
 
     }
 
+    /**
+     * Draws the desired message on the side of the array.
+     * @param message The message to be drawn.
+     */
     private void printHelpMessage(String[] message) {
 
         for (int layer = 0; layer < message.length; layer++) {

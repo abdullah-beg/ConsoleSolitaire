@@ -4,12 +4,21 @@ import java.util.Scanner;
 
 public class Parser {
 
-    private Scanner userInput;
+    private final Scanner userInput;
 
+    /**
+     * Constructor for Parser.
+     */
     public Parser() {
+
         userInput = new Scanner(System.in);
+
     }
 
+    /**
+     * Reads the user input and returns it in the format of a segmented command.
+     * @return Command, either 1, 2 or 3 word command.
+     */
     public Command getUserCommand() {
         System.out.print(">");
         String[] command = userInput.nextLine().toLowerCase().stripLeading().stripTrailing().split(" ", 4); 
