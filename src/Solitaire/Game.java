@@ -384,18 +384,13 @@ public class Game {
      */
     private String convertInput(String input) {
 
-        return switch (input) {
-            case "a" -> "1";
-
-            case "j" -> "11";
-
-            case "q" -> "12";
-
-            case "k" -> "13";
-
-            default -> input;
-
-        };
+        switch (input) {
+            case "a": return "1"; 
+            case "j": return "11"; 
+            case "q": return "12"; 
+            case "k": return "13";
+            default: return input; 
+        }
 
     }
 
